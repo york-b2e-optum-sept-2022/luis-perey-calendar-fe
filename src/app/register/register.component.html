@@ -1,0 +1,39 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="card col-offset-4 col-4">
+    <div class="card-body">
+      <div class="text-center">
+        <B>Register</B>
+      </div>
+      <div>
+        <div>
+          <i class="bi bi-person pe-2"></i><label for="name">Name:</label>
+          <input [(ngModel)]="user.name" id="name" type="text" class="form-control">
+        </div>
+        <div class="mt-3 mb-3">
+          <i class="bi bi-person pe-2"></i><label for="lastName">Last Name:</label>
+          <input [(ngModel)]="user.lastName" id="lastName" type="text" class="form-control">
+        </div>
+        <div class="mt-3 mb-3">
+          <i class="bi bi-envelope pe-2"></i><label for="email">E-mail:</label>
+          <input [(ngModel)]="user.email" id="email" type="text" class="form-control">
+        </div>
+        <div class="mt-3 mb-3">
+          <i class="bi bi-lock pe-2"></i><label for="password">Password:</label>
+          <input [(ngModel)]="user.password" id="password" type="password" class="form-control">
+        </div>
+        <div class="mt-3 mb-3">
+          <i class="bi bi-lock pe-2"></i><label for="repeatPassword">Repeat Password</label>
+          <input [(ngModel)]="repeatPassword" id="repeatPassword" type="password" class="form-control">
+        </div>
+        <div>
+          <button (click)="onSubmitRegister()" class="btn btn-dark form-control mt-2">Submit</button>
+          <button (click)="onCancelClick()" class="btn btn-secondary form-control mt-2">Cancel</button>
+        </div>
+        <div class="mt-3 mb-3 text-danger">
+          {{ message }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
