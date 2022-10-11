@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {first, Subject} from "rxjs";
+import {BehaviorSubject, first, Subject} from "rxjs";
 import {v4 as uuid} from 'uuid';
 import {ILoginForm} from "../_interfaces/ILoginForm";
 import {ERROR} from "../_enums/ERROR";
@@ -13,16 +13,17 @@ import {EventService} from "./event.service";
 export class UserService {
 
   private userAccount!: IUser
-  allAccounts! : IUser[]
-  $userOwner = new Subject<IUser>()
-  $userAccount = new Subject<IUser>()
+
+  $userOwner = new Subject<IUser | null>()
+  $userAccount = new BehaviorSubject<IUser | null>(null)
   $isRegistering = new Subject<boolean>()
   $message = new Subject<string>()
   $isLoggedIn = new Subject<boolean>()
-  $accounts = new Subject<IUser[]>()
+
+  inviteesAccounts! : IUser[]
+  $inviteesAccounts = new BehaviorSubject<IUser[]>([])
 
   constructor(private httpService: HttpService, private eventService: EventService) {
-
   }
 
   setRegistering(bool: boolean) {
@@ -34,14 +35,14 @@ export class UserService {
   }
 
   getInvitees(){
-    return this.allAccounts
+    return this.inviteesAccounts
   }
 
-  getAllAccounts(){
+  getInviteesAccounts(){
     this.httpService.getAllAccounts().pipe(first()).subscribe({
       next:(accounts)=>{
-        this.$accounts.next(accounts.filter(user => user.id !== this.userAccount.id))
-        this.allAccounts = accounts.filter(user => user.id !== this.userAccount.id)
+        this.inviteesAccounts = accounts.filter(user => user.id !== this.userAccount.id)
+        this.$inviteesAccounts.next(this.inviteesAccounts)
       },
       error:(err)=>{
         console.error(err)
@@ -81,10 +82,10 @@ export class UserService {
         this.$userAccount.next(userOk)
         this.$isLoggedIn.next(true)
         this.eventService.getEventList(userOk.id)
+        this.getInviteesAccounts()
       },
-      error: (err) => {
+      error: () => {
         this.$message.next(ERROR.LOGIN_HTTP_ERROR)
-        console.error(err);
       }
     })
   }
@@ -130,14 +131,15 @@ export class UserService {
         this.eventService.getEventList(user.id)
         this.setRegistering(false)
       },
-      error: (err)=>{
+      error: ()=>{
         this.$message.next(ERROR.REGISTER_HTTP_ERROR)
-        console.error(err)
       }
     })
   }
 
   logout(){
+    this.$userAccount.next(null)
+    this.$userOwner.next(null)
     this.$isLoggedIn.next(false)
   }
 }

@@ -12,7 +12,7 @@ import {UserService} from "../_services/user.service";
 export class OwnEventComponent implements OnInit {
 
   @Input() event! : IEvent
-  user! : IUser
+  user! : IUser | null
 
   constructor(private eventService: EventService, private userService: UserService) {
     this.userService.$userAccount.subscribe(user=> this.user = user)

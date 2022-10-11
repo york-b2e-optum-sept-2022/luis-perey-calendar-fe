@@ -9,10 +9,11 @@ import {EventService} from "./_services/event.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'store-test';
-  register: boolean = false
-  user!: IUser;
+
   @Input() isLogout: boolean = false
+
+  register: boolean = false
+  user: IUser | null = null;
   isLoggedIn: boolean = false
   isCreatingEvent: boolean = false
   isEditingEvent: boolean = false

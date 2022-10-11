@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {HttpService} from "../_services/http.service";
-import {first, Subject, takeUntil} from "rxjs";
+import {Subject} from "rxjs";
 import {IEvent} from "../_interfaces/IEvent";
-import {ERROR} from "../_enums/ERROR";
 import {EventService} from "../_services/event.service";
 import {UserService} from "../_services/user.service";
 import {IUser} from "../_interfaces/IUser";
@@ -15,14 +12,15 @@ import {IUser} from "../_interfaces/IUser";
 })
 export class EventListComponent implements OnInit {
 
-  eventList! : IEvent[] | null
+  eventList! : IEvent[]
   message: string = ''
-  currentUser!: IUser
+  currentUser!: IUser | null
   onDestroy = new Subject();
 
   constructor(private eventService: EventService, private userService : UserService) {
     this.eventService.$eventList.subscribe(list=>this.eventList = list)
     this.userService.$userAccount.subscribe(user=>this.currentUser = user)
+    console.log(this.eventList)
   }
 
   ngOnInit(): void {

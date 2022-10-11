@@ -53,7 +53,7 @@
   ],
   "events": [
     {
-      "id": "8cda8df3-3975-40dd-80bf-8eea68959698",
+      "id": "a11ac3fc-740f-4355-814b-ff8635866092",
       "ownerId": {
         "id": "cf5996ac-c2ab-48bc-b295-2c8eb20a779a",
         "name": "Ignacio",
@@ -61,8 +61,8 @@
         "email": "admin@admin.com",
         "password": "admin"
       },
-      "date": "2022-10-11T00:13:08.720Z",
-      "name": "",
+      "date": "2022-10-07",
+      "name": "ddfasdfdsf",
       "invitees": [
         {
           "id": "38175e6d-16dd-4db8-91fa-0898a449736d",
@@ -70,34 +70,7 @@
           "lastName": "Perey",
           "email": "luis@admin.com",
           "password": "12345"
-        }
-      ]
-    },
-    {
-      "id": "726064f1-4c55-42d8-b3b7-64f57e82084f",
-      "ownerId": {
-        "id": "38175e6d-16dd-4db8-91fa-0898a449736d",
-        "name": "Luis",
-        "lastName": "Perey",
-        "email": "luis@admin.com",
-        "password": "12345"
-      },
-      "date": "2022-10-11T00:15:57.463Z",
-      "name": "",
-      "invitees": []
-    },
-    {
-      "id": "577b68fd-f917-4b13-a527-ba06521c878e",
-      "ownerId": {
-        "id": "cf5996ac-c2ab-48bc-b295-2c8eb20a779a",
-        "name": "Ignacio",
-        "lastName": "Perey",
-        "email": "admin@admin.com",
-        "password": "admin"
-      },
-      "date": "2022-10-11T00:51:58.991Z",
-      "name": "",
-      "invitees": [
+        },
         {
           "id": "74dd55e5-a9b1-41f7-9a6d-0a392a87e7ac",
           "name": "Claudia",
@@ -106,26 +79,33 @@
           "password": "12345"
         },
         {
-          "id": "3b9cadeb-a43d-4bb9-a9bf-ba3eb0ed7894",
-          "name": "Carlos",
+          "id": "a0c55095-7ec1-4fdb-8c5b-9455c4397bd0",
+          "name": "Florencia",
           "lastName": "Perey",
-          "email": "carlos@admin.com",
+          "email": "florencia@admin.com",
           "password": "12345"
         }
       ]
     },
     {
-      "id": "b6a53916-ccf4-4eb1-8569-bd5c0eb62a3e",
+      "id": "b6e7a9ba-5032-47d4-a5d9-8482e4a31230",
       "ownerId": {
-        "id": "cf5996ac-c2ab-48bc-b295-2c8eb20a779a",
-        "name": "Ignacio",
-        "lastName": "Perey",
-        "email": "admin@admin.com",
-        "password": "admin"
+        "id": "74dd55e5-a9b1-41f7-9a6d-0a392a87e7ac",
+        "name": "Claudia",
+        "lastName": "Martinez",
+        "email": "claudia@admin.com",
+        "password": "12345"
       },
-      "date": "2022-10-11T00:52:51.305Z",
-      "name": "",
+      "date": null,
+      "name": null,
       "invitees": [
+        {
+          "id": "38175e6d-16dd-4db8-91fa-0898a449736d",
+          "name": "Luis",
+          "lastName": "Perey",
+          "email": "luis@admin.com",
+          "password": "12345"
+        },
         {
           "id": "a0c55095-7ec1-4fdb-8c5b-9455c4397bd0",
           "name": "Florencia",
@@ -137,14 +117,7 @@
           "id": "d8f4c572-d356-43ec-afd2-0d63514adc6f",
           "name": "Alfredo",
           "lastName": "Perey",
-          "email": "alfredo@damin.com",
-          "password": "12345"
-        },
-        {
-          "id": "3b9cadeb-a43d-4bb9-a9bf-ba3eb0ed7894",
-          "name": "Carlos",
-          "lastName": "Perey",
-          "email": "carlos@admin.com",
+          "email": "alfredo@admin.com",
           "password": "12345"
         },
         {
@@ -158,16 +131,115 @@
       ]
     },
     {
-      "id": "b41ac704-8b20-4ae2-8b2c-90994f26ae4f",
+      "id": "2146c551-0e80-48aa-a3b6-c5933e160d8d",
       "ownerId": {
-        "id": "3b9cadeb-a43d-4bb9-a9bf-ba3eb0ed7894",
-        "name": "Carlos",
-        "lastName": "Perey",
-        "email": "carlos@admin.com",
+        "id": "74dd55e5-a9b1-41f7-9a6d-0a392a87e7ac",
+        "name": "Claudia",
+        "lastName": "Martinez",
+        "email": "claudia@admin.com",
         "password": "12345"
       },
-      "date": "2022-10-11T01:03:01.105Z",
-      "name": "",
+      "date": null,
+      "name": null,
+      "invitees": [
+        {
+          "id": "9fe13484-cb9b-4cb6-90ef-565124211860",
+          "email": "claudio@admin.com",
+          "name": "Claudio",
+          "firstName": "Claudio",
+          "lastName": "Perey",
+          "password": "12345"
+        }
+      ]
+    },
+    {
+      "id": "b3753cf4-9099-4580-8ea3-2b47f3ea6f8c",
+      "ownerId": {
+        "id": "9fe13484-cb9b-4cb6-90ef-565124211860",
+        "email": "claudio@admin.com",
+        "name": "Claudio",
+        "firstName": "Claudio",
+        "lastName": "Perey",
+        "password": "12345"
+      },
+      "date": null,
+      "name": null,
+      "invitees": [
+        {
+          "id": "74dd55e5-a9b1-41f7-9a6d-0a392a87e7ac",
+          "name": "Claudia",
+          "lastName": "Martinez",
+          "email": "claudia@admin.com",
+          "password": "12345"
+        },
+        {
+          "id": "a0c55095-7ec1-4fdb-8c5b-9455c4397bd0",
+          "name": "Florencia",
+          "lastName": "Perey",
+          "email": "florencia@admin.com",
+          "password": "12345"
+        }
+      ]
+    },
+    {
+      "id": "c5518a37-24c7-4546-aba4-f3c2ea85143b",
+      "ownerId": {
+        "id": "a0c55095-7ec1-4fdb-8c5b-9455c4397bd0",
+        "name": "Florencia",
+        "lastName": "Perey",
+        "email": "florencia@admin.com",
+        "password": "12345"
+      },
+      "date": null,
+      "name": null,
+      "invitees": []
+    },
+    {
+      "id": "ae14efd0-45ca-44e6-91d2-921f083aa1b2",
+      "ownerId": {
+        "id": "a0c55095-7ec1-4fdb-8c5b-9455c4397bd0",
+        "name": "Florencia",
+        "lastName": "Perey",
+        "email": "florencia@admin.com",
+        "password": "12345"
+      },
+      "date": null,
+      "name": null,
+      "invitees": [
+        {
+          "id": "38175e6d-16dd-4db8-91fa-0898a449736d",
+          "name": "Luis",
+          "lastName": "Perey",
+          "email": "luis@admin.com",
+          "password": "12345"
+        },
+        {
+          "id": "cf5996ac-c2ab-48bc-b295-2c8eb20a779a",
+          "name": "Ignacio",
+          "lastName": "Perey",
+          "email": "admin@admin.com",
+          "password": "admin"
+        },
+        {
+          "id": "d8f4c572-d356-43ec-afd2-0d63514adc6f",
+          "name": "Alfredo",
+          "lastName": "Perey",
+          "email": "alfredo@admin.com",
+          "password": "12345"
+        }
+      ]
+    },
+    {
+      "id": "f8a5c98c-f65f-42ba-a4ec-4c875eddcd95",
+      "ownerId": {
+        "id": "cf5996ac-c2ab-48bc-b295-2c8eb20a779a",
+        "name": "Ignacio",
+        "lastName": "Perey",
+        "email": "admin@admin.com",
+        "password": "admin"
+      },
+      "date": "2022-10-11T17:25:45.932Z",
+      "name": "tytryerty",
       "invitees": [
         {
           "id": "38175e6d-16dd-4db8-91fa-0898a449736d",
@@ -182,62 +254,15 @@
           "lastName": "Martinez",
           "email": "claudia@admin.com",
           "password": "12345"
-        }
-      ]
-    },
-    {
-      "id": "0f798d3e-564f-46bd-8cfb-191dde230404",
-      "ownerId": {
-        "id": "a0c55095-7ec1-4fdb-8c5b-9455c4397bd0",
-        "name": "Florencia",
-        "lastName": "Perey",
-        "email": "florencia@admin.com",
-        "password": "12345"
-      },
-      "date": "2022-10-11T01:15:24.550Z",
-      "name": "",
-      "invitees": [
-        {
-          "id": "cf5996ac-c2ab-48bc-b295-2c8eb20a779a",
-          "name": "Ignacio",
-          "lastName": "Perey",
-          "email": "admin@admin.com",
-          "password": "admin"
         },
         {
-          "id": "d8f4c572-d356-43ec-afd2-0d63514adc6f",
-          "name": "Alfredo",
+          "id": "3b9cadeb-a43d-4bb9-a9bf-ba3eb0ed7894",
+          "name": "Carlos",
           "lastName": "Perey",
-          "email": "alfredo@damin.com",
+          "email": "carlos@admin.com",
           "password": "12345"
         }
       ]
-    },
-    {
-      "id": "8e739960-d9ac-4752-8a3e-f9da9c880c95",
-      "ownerId": {
-        "id": "d8f4c572-d356-43ec-afd2-0d63514adc6f",
-        "name": "Alfredo",
-        "lastName": "Perey",
-        "email": "alfredo@admin.com",
-        "password": "12345"
-      },
-      "date": "2022-10-07",
-      "name": "",
-      "invitees": []
-    },
-    {
-      "id": "14d3c926-9e15-4061-a504-9fa0f1a38f79",
-      "ownerId": {
-        "id": "d8f4c572-d356-43ec-afd2-0d63514adc6f",
-        "name": "Alfredo",
-        "lastName": "Perey",
-        "email": "alfredo@admin.com",
-        "password": "12345"
-      },
-      "date": "2022-10-08",
-      "name": "wertwretret",
-      "invitees": []
     }
   ]
 }

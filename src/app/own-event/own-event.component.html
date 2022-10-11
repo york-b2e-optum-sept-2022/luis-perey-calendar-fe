@@ -5,7 +5,7 @@
         <div class="card-header">{{ event.name }}</div>
       </div>
       <div class="p-2">
-        <button (click)="onEditClick()" class="btn btn-sm btn-primary">Edit</button>
+        <button *ngIf="event?.ownerId?.id === user?.id" (click)="onEditClick()" class="btn btn-sm btn-primary">Edit</button>
       </div>
     </div>
     <div class="card-body text-dark">
@@ -30,7 +30,7 @@
         <div class="card-footer">Date : {{ event.date }}</div>
       </div>
       <div>
-        <button (click)="onClickDelete()" class="btn btn-sm btn-danger">Delete</button>
+        <button *ngIf="event?.ownerId?.id === user?.id" (click)="onClickDelete()" class="btn btn-sm btn-danger">Delete</button>
       </div>
     </div>
   </div>

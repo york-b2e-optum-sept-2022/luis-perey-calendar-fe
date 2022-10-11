@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormControl, FormGroup, NgForm, FormBuilder } from '@angular/forms';
+import {FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { IUser } from '../_interfaces/IUser';
 import {UserService} from "../_services/user.service";
 import { IEvent } from '../_interfaces/IEvent';
@@ -15,47 +15,40 @@ export class EventFormComponent implements OnInit {
 
   eventForm!: FormGroup;
   invitees! : IUser[]
-  userAccount! : IUser
-  event!: IEvent
+  userAccount! : IUser | null
+  event!: IEvent | null
 
   constructor(private userService: UserService, private fb:FormBuilder, private eventService: EventService) {
-    this.userService.$accounts.subscribe(val=> this.invitees = val)
+    this.userService.$inviteesAccounts.subscribe(val=> this.invitees = val)
     this.userService.$userAccount.subscribe(val=>this.userAccount = val)
     this.eventService.$currentEvent.subscribe(val=>this.event = val)
-    this.userService.getUserAccount()
   }
 
   ngOnInit(): void {
-    this.getUsers()
-    this.event = this.eventService.getEvent()
     this.eventForm = this.fb.group({
-      name: this.event.name,
-      date: this.event.date,
+      name: this.event?.name,
+      date: this.event?.date,
       invitees: this.buildInvitees()
     })
 
   }
 
   buildInvitees(){
-    console.log(this.event.invitees)
     return this.fb.array(this.invitees.map(x=> {
-      return new FormControl(this.event.invitees.map(x=>x.id).includes(x.id))
+      return new FormControl(this.event?.invitees.map(x=>x.id).includes(x.id))
     }))
   }
-
-  getUsers() {
-    this.invitees = this.userService.getInvitees()
-    this.userAccount = this.userService.getUserAccount()
-  }
-
   onSubmit(){
+    console.log('submit!')
+    console.log(this.event)
     let valueSubmit = Object.assign({}, this.eventForm.value)
     valueSubmit = Object.assign(valueSubmit,{
       invitees: valueSubmit.invitees.map((v:boolean,i:number)=> v ? this.invitees[i] : null).filter((v: any) => v !== null)
     })
-    if(!this.event.id) {
+    if(!this.event?.id) {
       let newEvent: IEvent = {
         id: uuid(),
+        // @ts-ignore
         ownerId: this.userAccount,
         date: this.eventForm.value.date,
         name: this.eventForm.value.name,
@@ -65,6 +58,7 @@ export class EventFormComponent implements OnInit {
     } else {
       let event: IEvent = {
         id: this.event.id,
+        // @ts-ignore
         ownerId: this.userAccount,
         date: this.eventForm.value.date,
         name: this.eventForm.value.name,

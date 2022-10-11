@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, first, Observable, ReplaySubject, Subject} from "rxjs";
+import {BehaviorSubject, first, Subject} from "rxjs";
 import {HttpService} from "./http.service";
 import {ERROR} from "../_enums/ERROR";
 import {IUser} from "../_interfaces/IUser";
@@ -11,10 +11,10 @@ import {IEvent} from "../_interfaces/IEvent";
 export class EventService {
 
   $eventError = new Subject<string>();
-  $eventList = new Subject<IEvent[]>()
+  $eventList = new BehaviorSubject<IEvent[]>([])
   $isCreatingEvent = new Subject<boolean>()
   $isEditingEvent = new Subject<boolean>()
-  $currentEvent = new Subject<IEvent>()
+  $currentEvent = new BehaviorSubject<IEvent | null>(null)
 
   private eventOwner!: IUser
   private eventList! : IEvent[]
@@ -27,7 +27,7 @@ export class EventService {
       next:(user)=>{
         this.eventOwner = user[0]
       },
-      error:(err)=>{
+      error:()=>{
         this.$eventError.next(ERROR.EVENT_SERVICE_HTTP_ERROR)
       }
     })
@@ -51,10 +51,6 @@ export class EventService {
     return this.eventList
   }
 
-  getEvent() {
-    return this.event
-  }
-
   onClickNewEvent(){
     this.$isCreatingEvent.next(true)
 
@@ -66,13 +62,13 @@ export class EventService {
       // @ts-ignore
       invitees: []
       }
+
+    this.$currentEvent.next(this.event)
   }
 
   onClickCancel() {
     this.$isCreatingEvent.next(false)
     this.$isEditingEvent.next(false)
-    this.getEventList(this.event.ownerId.id)
-    // console.log(this.eventList)
   }
 
   createNewEvent(newEvent: IEvent){
@@ -80,7 +76,6 @@ export class EventService {
       next:(data)=>{
         this.$isCreatingEvent.next(false)
         this.getEventList(data.ownerId.id)
-        console.log(data)
       },
       error:(err)=>{
         console.error(err)
@@ -90,9 +85,8 @@ export class EventService {
 
   deleteEvent(eventId: string, userId: string) {
     this.httpService.deleteEvent(eventId).pipe(first()).subscribe({
-      next:(data)=>{
+      next:()=>{
         this.getEventList(userId)
-        console.log(data)
       },
       error:(err)=>{
         console.error(err)
@@ -113,7 +107,6 @@ export class EventService {
   }
 
   onClickEdit(event: IEvent){
-    console.log(event)
     this.event = event
     this.$isEditingEvent.next(true)
     this.$currentEvent.next(event)

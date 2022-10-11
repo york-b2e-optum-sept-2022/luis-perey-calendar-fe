@@ -1,8 +1,11 @@
 <nav class="navbar">
   <div>
-    Hi {{ user.name }}
+    Hi <span *ngIf="user?.name !== null">{{ user?.name }}</span>
   </div>
   <div>
     <button *ngIf="!isCreatingEvent" (click)="onClickNew()" >New Event</button>
+  </div>
+  <div>
+    <button (click)="onClickLogout()" >Logout</button>
   </div>
 </nav>

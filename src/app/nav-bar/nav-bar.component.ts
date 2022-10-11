@@ -10,7 +10,7 @@ import { UserService } from '../_services/user.service';
 })
 export class NavBarComponent implements OnInit {
 
-  @Input() user = {} as IUser
+  @Input() user = {} as IUser | null
   isCreatingEvent: boolean = false
 
   constructor(private eventService: EventService,
@@ -22,8 +22,12 @@ export class NavBarComponent implements OnInit {
   }
 
   onClickNew(){
-    this.userService.getAllAccounts()
+    this.userService.getInviteesAccounts()
     this.userService.getInvitees()
     this.eventService.onClickNewEvent()
+  }
+
+  onClickLogout(){
+    this.userService.logout()
   }
 }
