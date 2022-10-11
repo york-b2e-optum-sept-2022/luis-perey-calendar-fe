@@ -1,0 +1,10 @@
+.evet-card > .card .list-inline-item {
+  color: #ba9643;
+  font-size: 14px;
+}
+.evet-card > .card .badge {
+  background: #ba9643;
+}
+.evet-card > .card {
+  background: #242021;
+}

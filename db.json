@@ -53,41 +53,6 @@
   ],
   "events": [
     {
-      "id": "a11ac3fc-740f-4355-814b-ff8635866092",
-      "ownerId": {
-        "id": "cf5996ac-c2ab-48bc-b295-2c8eb20a779a",
-        "name": "Ignacio",
-        "lastName": "Perey",
-        "email": "admin@admin.com",
-        "password": "admin"
-      },
-      "date": "2022-10-07",
-      "name": "ddfasdfdsf",
-      "invitees": [
-        {
-          "id": "38175e6d-16dd-4db8-91fa-0898a449736d",
-          "name": "Luis",
-          "lastName": "Perey",
-          "email": "luis@admin.com",
-          "password": "12345"
-        },
-        {
-          "id": "74dd55e5-a9b1-41f7-9a6d-0a392a87e7ac",
-          "name": "Claudia",
-          "lastName": "Martinez",
-          "email": "claudia@admin.com",
-          "password": "12345"
-        },
-        {
-          "id": "a0c55095-7ec1-4fdb-8c5b-9455c4397bd0",
-          "name": "Florencia",
-          "lastName": "Perey",
-          "email": "florencia@admin.com",
-          "password": "12345"
-        }
-      ]
-    },
-    {
       "id": "b6e7a9ba-5032-47d4-a5d9-8482e4a31230",
       "ownerId": {
         "id": "74dd55e5-a9b1-41f7-9a6d-0a392a87e7ac",
@@ -190,7 +155,7 @@
         "email": "florencia@admin.com",
         "password": "12345"
       },
-      "date": null,
+      "date": "2022-10-14",
       "name": null,
       "invitees": []
     },
@@ -230,7 +195,7 @@
       ]
     },
     {
-      "id": "f8a5c98c-f65f-42ba-a4ec-4c875eddcd95",
+      "id": "bcabd142-54f8-45f3-8f49-e4b34b0c22c9",
       "ownerId": {
         "id": "cf5996ac-c2ab-48bc-b295-2c8eb20a779a",
         "name": "Ignacio",
@@ -238,8 +203,13 @@
         "email": "admin@admin.com",
         "password": "admin"
       },
-      "date": "2022-10-11T17:25:45.932Z",
-      "name": "tytryerty",
+      "date": {
+        "year": 2026,
+        "month": 8,
+        "day": 15
+      },
+      "name": "Birthday Party",
+      "description": null,
       "invitees": [
         {
           "id": "38175e6d-16dd-4db8-91fa-0898a449736d",
@@ -254,12 +224,49 @@
           "lastName": "Martinez",
           "email": "claudia@admin.com",
           "password": "12345"
+        }
+      ]
+    },
+    {
+      "id": "516048e0-2c6b-466c-9dff-b1120ba8eaaf",
+      "ownerId": {
+        "id": "cf5996ac-c2ab-48bc-b295-2c8eb20a779a",
+        "name": "Ignacio",
+        "lastName": "Perey",
+        "email": "admin@admin.com",
+        "password": "admin"
+      },
+      "date": "2022-10-11T19:24:18.179Z",
+      "name": "",
+      "description": null,
+      "invitees": [
+        {
+          "id": "a0c55095-7ec1-4fdb-8c5b-9455c4397bd0",
+          "name": "Florencia",
+          "lastName": "Perey",
+          "email": "florencia@admin.com",
+          "password": "12345"
+        },
+        {
+          "id": "d8f4c572-d356-43ec-afd2-0d63514adc6f",
+          "name": "Alfredo",
+          "lastName": "Perey",
+          "email": "alfredo@admin.com",
+          "password": "12345"
         },
         {
           "id": "3b9cadeb-a43d-4bb9-a9bf-ba3eb0ed7894",
           "name": "Carlos",
           "lastName": "Perey",
           "email": "carlos@admin.com",
+          "password": "12345"
+        },
+        {
+          "id": "9fe13484-cb9b-4cb6-90ef-565124211860",
+          "email": "claudio@admin.com",
+          "name": "Claudio",
+          "firstName": "Claudio",
+          "lastName": "Perey",
           "password": "12345"
         }
       ]

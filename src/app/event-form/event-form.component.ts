@@ -28,9 +28,13 @@ export class EventFormComponent implements OnInit {
     this.eventForm = this.fb.group({
       name: this.event?.name,
       date: this.event?.date,
+      description: this.event?.description,
+      time: this.event?.time,
+      place: this.event?.place,
+      address: this.event?.address,
+      duration: this.event?.duration,
       invitees: this.buildInvitees()
     })
-
   }
 
   buildInvitees(){
@@ -52,6 +56,7 @@ export class EventFormComponent implements OnInit {
         ownerId: this.userAccount,
         date: this.eventForm.value.date,
         name: this.eventForm.value.name,
+        description: this.eventForm.value.description,
         invitees: valueSubmit.invitees
       }
       this.eventService.createNewEvent(newEvent)
@@ -62,6 +67,7 @@ export class EventFormComponent implements OnInit {
         ownerId: this.userAccount,
         date: this.eventForm.value.date,
         name: this.eventForm.value.name,
+        description: this.eventForm.value.description,
         invitees: valueSubmit.invitees
       }
       this.eventService.updateEvent(event)

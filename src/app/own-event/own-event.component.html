@@ -1,38 +1,67 @@
-<div>
-  <div class="card border-dark mb-3" style="max-width: 18rem;">
-    <div class="d-flex justify-content-between">
-      <div class="flex-grow-1">
-        <div class="card-header">{{ event.name }}</div>
-      </div>
-      <div class="p-2">
-        <button *ngIf="event?.ownerId?.id === user?.id" (click)="onEditClick()" class="btn btn-sm btn-primary">Edit</button>
-      </div>
-    </div>
-    <div class="card-body text-dark">
-      <div>
-        <h5 class="card-title">Dark card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      </div>
-      <div class="text-end pt-4">
-        <H6><I>Owned by {{ event.ownerId.name }} {{ event.ownerId.lastName}}</I></H6>
-      </div>
-      <div>
-        invitees :
-        <ul>
-          <div *ngFor="let inv of event.invitees">
-            <li>{{ inv.name }} {{ inv.lastName}}</li>
+<div class="contasiner">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card-group evet-card text-light mb-2">
+        <div class="card mb-0">
+          <div class="card-body py-1">
+            <div class="row">
+              <div class="col-5 col-sm-3">
+                <div class="display-6">
+                  <span class="badge">{{ event.date | date: 'dd' }}</span>
+                </div>
+                <div class="display-6">
+                  {{ event.date | date: 'LLL'}}
+                </div>
+              </div>
+              <div class="col-7 col-sm-9">
+                <div class="d-flex flex-column">
+                  <h3 class="card-title text-uppercase mt-0">
+                    <strong>{{ event.name }}</strong>
+                  </h3>
+                  <div class="card-text">
+
+                  </div>
+                  <ul class="list-inline mt-auto">
+                    <li class="list-inline-item"> <strong>Created By :</strong></li>
+                    <li class="list-inline-item"><i class="bi bi-person-fill"></i>{{ event.ownerId.name }} {{ event.ownerId.lastName }}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
-        </ul>
-      </div>
-    </div>
-    <div class="d-flex">
-      <div class="flex-grow-1">
-        <div class="card-footer">Date : {{ event.date }}</div>
-      </div>
-      <div>
-        <button *ngIf="event?.ownerId?.id === user?.id" (click)="onClickDelete()" class="btn btn-sm btn-danger">Delete</button>
+        </div>
+        <div class="card mb-0">
+          <div class="card-body py-1">
+            <div class="row h-100">
+              <div class="col-5 col-sm-4">
+                <ul class="list-group my-0 pl-1">
+                  <li class="list-inline-item"><i class="bi bi-clock"></i> 2:30-4:00 PM</li>
+                  <li class="list-inline-item"><i class="bi bi-calendar-check"></i> {{ event.date | date:'EEEE'}}</li>
+                  <li class="list-inline-item"><i class="bi bi-geo-alt"></i> New-Delhi</li>
+                  <li class="list-inline-item"><i class="bi bi-geo-fill"></i> Room 4019</li>
+                  <li class="list-inline-item"><i class="bi bi-stopwatch-fill"></i> 120 min</li>
+                </ul>
+              </div>
+              <div class="col-7 col-sm-8 bg-white text-dark">
+                <div class="d-flex">
+                  <div>
+                    Invitees :
+                  </div>
+                  <div>
+                    <i *ngIf="event?.ownerId?.id === user?.id" (click)="onEditClick()" class="bi bi-pencil-square text-success"></i>
+                  </div>
+                  <div>
+                    <i *ngIf="event?.ownerId?.id === user?.id" (click)="onClickDelete()" class="bi bi-x-circle text-danger"></i>
+                  </div>
+                </div>
+                <ul>
+                  <li *ngFor="let inv of event.invitees">{{ inv.name }} {{ inv.lastName}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
