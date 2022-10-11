@@ -1,0 +1,70 @@
+<div>
+  <div>
+    <H2>New Event</H2>
+  </div>
+  <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label>Name : </label>
+      <input type="text" class="text form-control" formControlName="name">
+    </div>
+    <div>
+      <label>Date : </label>
+      <input type="date" class="text form-control" formControlName="date">
+    </div>
+    <div>
+      <label>Invitees</label>
+      <div *ngFor="let item of invitees; let i = index" class="checkbox" formArrayName="invitees">
+        <input type="checkbox" [formControlName]="i"> {{ item.name }} {{ item.lastName }}
+      </div>
+    </div>
+    <button (click)="onCancelClick()" class="btn btn-dark">Cancel</button>
+    <button class="btn btn-dark" type="submit">Submit</button>
+  </form>
+
+
+
+
+
+
+<!--    <div class="card border-dark mb-3" style="max-width: 30rem;">-->
+<!--    <div class="card-header">-->
+<!--        <div><input ngModel name="eventName" type="text" class="text" placeholder="Event Name"></div>-->
+<!--        <div>-->
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--                <div ngbDropdown class="d-inline-block">-->
+<!--                  <button  (click)="getUsers()" type="button" class="btn btn-outline-dark" id="dropdownForm1" ngbDropdownToggle>Invitees</button>-->
+<!--                  <div ngbDropdownMenu aria-labelledby="dropdownForm1">-->
+<!--                      <div class="form-group">-->
+<!--                        <ul class="checkbox-items">-->
+<!--                          <li *ngFor="let item of invitees">-->
+<!--                            <input type="checkbox" ngModel name="{{item.id}}" formArrayName="invitees">{{item.name}} {{item.lastName}}-->
+<!--                          </li>-->
+<!--                        </ul>-->
+<!--                      </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+<!--    <div class="card-body text-dark">-->
+<!--      <div>-->
+<!--        <h5 class="card-title">Dark card title</h5>-->
+<!--        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+<!--      </div>-->
+<!--      <div class="text-end pt-4">-->
+<!--        <H6><I>Owned by Luis</I></H6>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--      <div class="card-footer">Date: <input ngModel name="date" type="date"></div>-->
+<!--      <div>-->
+<!--        <button>Cancel</button>-->
+<!--      </div>-->
+<!--    <div>-->
+<!--      <button (click)="onSelect()" class="btn btn-dark" type="submit">Submit</button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  </form>-->
+</div>

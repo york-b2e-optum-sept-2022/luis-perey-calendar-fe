@@ -1,9 +1,122 @@
 import { Injectable } from '@angular/core';
+import {BehaviorSubject, first, Observable, ReplaySubject, Subject} from "rxjs";
+import {HttpService} from "./http.service";
+import {ERROR} from "../_enums/ERROR";
+import {IUser} from "../_interfaces/IUser";
+import {IEvent} from "../_interfaces/IEvent";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
 
-  constructor() { }
+  $eventError = new Subject<string>();
+  $eventList = new Subject<IEvent[]>()
+  $isCreatingEvent = new Subject<boolean>()
+  $isEditingEvent = new Subject<boolean>()
+  $currentEvent = new Subject<IEvent>()
+
+  private eventOwner!: IUser
+  private eventList! : IEvent[]
+  private event!: IEvent
+
+  constructor(private httpService: HttpService) { }
+
+  getEventByOwnerId(ownerId: string){
+    this.httpService.getUserById(ownerId).pipe(first()).subscribe({
+      next:(user)=>{
+        this.eventOwner = user[0]
+      },
+      error:(err)=>{
+        this.$eventError.next(ERROR.EVENT_SERVICE_HTTP_ERROR)
+      }
+    })
+    return this.eventOwner
+  }
+
+  getEventList(id: string) {
+    console.log(id)
+    this.httpService.getEvents().pipe(first()).subscribe({
+      next: (list) => {
+        this.eventList = list.filter(x=>x.ownerId.id === id || x.invitees.map(v=>v.id).includes(id))
+        this.$eventList.next(this.eventList)
+      },
+      error: (err) => {
+        console.error(err) // = ERROR.EVENT_SERVICE_HTTP_ERROR
+      }
+    })
+  }
+
+  getEvents() {
+    return this.eventList
+  }
+
+  getEvent() {
+    return this.event
+  }
+
+  onClickNewEvent(){
+    this.$isCreatingEvent.next(true)
+
+    this.event = {
+      id:'',
+      ownerId:this.eventOwner,
+      date: new Date(),
+      name: '',
+      // @ts-ignore
+      invitees: []
+      }
+  }
+
+  onClickCancel() {
+    this.$isCreatingEvent.next(false)
+    this.$isEditingEvent.next(false)
+    this.getEventList(this.event.ownerId.id)
+    // console.log(this.eventList)
+  }
+
+  createNewEvent(newEvent: IEvent){
+    this.httpService.createEvent(newEvent).pipe(first()).subscribe({
+      next:(data)=>{
+        this.$isCreatingEvent.next(false)
+        this.getEventList(data.ownerId.id)
+        console.log(data)
+      },
+      error:(err)=>{
+        console.error(err)
+      }
+    })
+  }
+
+  deleteEvent(eventId: string, userId: string) {
+    this.httpService.deleteEvent(eventId).pipe(first()).subscribe({
+      next:(data)=>{
+        this.getEventList(userId)
+        console.log(data)
+      },
+      error:(err)=>{
+        console.error(err)
+      }
+    })
+  }
+
+  updateEvent(event: IEvent){
+    this.httpService.updateEvent(event).pipe(first()).subscribe({
+      next:(data)=>{
+        this.getEventList(data.ownerId.id)
+        this.$isEditingEvent.next(false)
+      },
+      error:(err)=>{
+        console.error(err)
+      }
+    })
+  }
+
+  onClickEdit(event: IEvent){
+    console.log(event)
+    this.event = event
+    this.$isEditingEvent.next(true)
+    this.$currentEvent.next(event)
+  }
+
 }

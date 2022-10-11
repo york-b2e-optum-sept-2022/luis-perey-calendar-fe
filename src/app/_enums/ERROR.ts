@@ -8,5 +8,6 @@ export enum ERROR {
   REGISTER_INVALID_PASSWORD = 'Password must have at least 5 characters',
   REGISTER_HTTP_ERROR = 'Error during the registration, please try again',
   REGISTER_DUPLICATE_EMAIL = 'Email already registered',
-  REGISTER_NO_MATCH_PASSWORD = 'Passwords do not match'
+  REGISTER_NO_MATCH_PASSWORD = 'Passwords do not match',
+  EVENT_SERVICE_HTTP_ERROR = 'Problems getting the Event List'
 }

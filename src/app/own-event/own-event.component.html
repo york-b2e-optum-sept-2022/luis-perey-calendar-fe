@@ -1,1 +1,38 @@
-<p>own-event works!</p>
+<div>
+  <div class="card border-dark mb-3" style="max-width: 18rem;">
+    <div class="d-flex justify-content-between">
+      <div class="flex-grow-1">
+        <div class="card-header">{{ event.name }}</div>
+      </div>
+      <div class="p-2">
+        <button (click)="onEditClick()" class="btn btn-sm btn-primary">Edit</button>
+      </div>
+    </div>
+    <div class="card-body text-dark">
+      <div>
+        <h5 class="card-title">Dark card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+      <div class="text-end pt-4">
+        <H6><I>Owned by {{ event.ownerId.name }} {{ event.ownerId.lastName}}</I></H6>
+      </div>
+      <div>
+        invitees :
+        <ul>
+          <div *ngFor="let inv of event.invitees">
+            <li>{{ inv.name }} {{ inv.lastName}}</li>
+          </div>
+        </ul>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="flex-grow-1">
+        <div class="card-footer">Date : {{ event.date }}</div>
+      </div>
+      <div>
+        <button (click)="onClickDelete()" class="btn btn-sm btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+

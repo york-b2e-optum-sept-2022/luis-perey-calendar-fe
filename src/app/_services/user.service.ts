@@ -5,6 +5,7 @@ import {ILoginForm} from "../_interfaces/ILoginForm";
 import {ERROR} from "../_enums/ERROR";
 import {IUser} from "../_interfaces/IUser";
 import {HttpService} from "./http.service";
+import {EventService} from "./event.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +13,16 @@ import {HttpService} from "./http.service";
 export class UserService {
 
   private userAccount!: IUser
+  allAccounts! : IUser[]
+  $userOwner = new Subject<IUser>()
   $userAccount = new Subject<IUser>()
   $isRegistering = new Subject<boolean>()
   $message = new Subject<string>()
   $isLoggedIn = new Subject<boolean>()
+  $accounts = new Subject<IUser[]>()
 
-  constructor(private httpService: HttpService) {
+  constructor(private httpService: HttpService, private eventService: EventService) {
+
   }
 
   setRegistering(bool: boolean) {
@@ -26,6 +31,33 @@ export class UserService {
 
   getUserAccount(){
     return this.userAccount
+  }
+
+  getInvitees(){
+    return this.allAccounts
+  }
+
+  getAllAccounts(){
+    this.httpService.getAllAccounts().pipe(first()).subscribe({
+      next:(accounts)=>{
+        this.$accounts.next(accounts.filter(user => user.id !== this.userAccount.id))
+        this.allAccounts = accounts.filter(user => user.id !== this.userAccount.id)
+      },
+      error:(err)=>{
+        console.error(err)
+      }
+    })
+  }
+
+  getUserById(userId: string){
+    this.httpService.getUserById(userId).pipe(first()).subscribe({
+      next:(user)=>{
+        this.$userOwner.next(user[0])
+      },
+      error:(err)=>{
+        console.error(err)
+      }
+    })
   }
 
   onLogin(user: ILoginForm){
@@ -47,8 +79,8 @@ export class UserService {
         }
         this.userAccount = userOk
         this.$userAccount.next(userOk)
-        console.log(userOk)
         this.$isLoggedIn.next(true)
+        this.eventService.getEventList(userOk.id)
       },
       error: (err) => {
         this.$message.next(ERROR.LOGIN_HTTP_ERROR)
@@ -83,7 +115,6 @@ export class UserService {
     this.httpService.getUserByEmail(user.email).pipe(first()).subscribe({
       next: (val) => {
         if (val.length > 0) {
-          console.log(val)
           this.$message.next(ERROR.REGISTER_DUPLICATE_EMAIL)
           return
         }
@@ -96,6 +127,7 @@ export class UserService {
             console.error(err)
           }
         })
+        this.eventService.getEventList(user.id)
         this.setRegistering(false)
       },
       error: (err)=>{

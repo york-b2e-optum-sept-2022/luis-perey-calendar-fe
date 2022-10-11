@@ -10,7 +10,8 @@ import { EventListComponent } from './event-list/event-list.component';
 import { OwnEventComponent } from './own-event/own-event.component';
 import { InviteEventComponent } from './invite-event/invite-event.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { EventFormComponent } from './event-form/event-form.component';
 
 @NgModule({
   declarations: [
@@ -20,13 +21,15 @@ import {FormsModule} from "@angular/forms";
     EventListComponent,
     OwnEventComponent,
     InviteEventComponent,
-    NavBarComponent
+    NavBarComponent,
+    EventFormComponent
   ],
   imports: [
     BrowserModule,
     NgbModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

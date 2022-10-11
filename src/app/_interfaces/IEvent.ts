@@ -2,11 +2,10 @@ import {IUser} from "./IUser";
 
 export interface IEvent {
   id: string
-  owner_id: string
+  ownerId: IUser
   name: string
   date: Date
-  invites : {
-    invite: IUser,
-    status: boolean
-  }[]
+  invitees : [
+    invite: IUser
+  ]
 }

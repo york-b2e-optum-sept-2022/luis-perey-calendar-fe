@@ -1,3 +1,8 @@
 <nav class="navbar">
-  Hi {{ user.name }}
+  <div>
+    Hi {{ user.name }}
+  </div>
+  <div>
+    <button *ngIf="!isCreatingEvent" (click)="onClickNew()" >New Event</button>
+  </div>
 </nav>
