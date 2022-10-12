@@ -6,7 +6,6 @@ export interface IEvent {
   name: string
   description: string
   date: Date
-  time: TimeRanges
   place: string
   address: string
   duration: number

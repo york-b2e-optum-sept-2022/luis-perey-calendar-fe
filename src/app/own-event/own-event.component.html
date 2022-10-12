@@ -19,7 +19,7 @@
                     <strong>{{ event.name }}</strong>
                   </h3>
                   <div class="card-text">
-
+                    {{ event.description }}
                   </div>
                   <ul class="list-inline mt-auto">
                     <li class="list-inline-item"> <strong>Created By :</strong></li>
@@ -35,11 +35,11 @@
             <div class="row h-100">
               <div class="col-5 col-sm-4">
                 <ul class="list-group my-0 pl-1">
-                  <li class="list-inline-item"><i class="bi bi-clock"></i> 2:30-4:00 PM</li>
+                  <li class="list-inline-item"><i class="bi bi-clock"></i> {{ event.date | date: 'shortTime'}}</li>
                   <li class="list-inline-item"><i class="bi bi-calendar-check"></i> {{ event.date | date:'EEEE'}}</li>
-                  <li class="list-inline-item"><i class="bi bi-geo-alt"></i> New-Delhi</li>
-                  <li class="list-inline-item"><i class="bi bi-geo-fill"></i> Room 4019</li>
-                  <li class="list-inline-item"><i class="bi bi-stopwatch-fill"></i> 120 min</li>
+                  <li class="list-inline-item"><i class="bi bi-geo-alt"></i> {{ event.place }}</li>
+                  <li class="list-inline-item"><i class="bi bi-geo-fill"></i> {{ event.address }}</li>
+                  <li class="list-inline-item"><i class="bi bi-stopwatch-fill"></i> {{ event.duration }}</li>
                 </ul>
               </div>
               <div class="col-7 col-sm-8 bg-white text-dark">
