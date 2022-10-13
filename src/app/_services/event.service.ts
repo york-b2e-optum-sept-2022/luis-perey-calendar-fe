@@ -158,4 +158,34 @@ export class EventService {
     this.endDate = null
     this.getEventList(this.userId, this.eventType)
   }
+
+  onSearchEvents(search: string) {
+    let results = []
+    for (let event of this.eventList) {
+      for (let [key, field] of Object.entries(event)) {
+        if (key !== 'id') {
+          if (key === 'invitees'){
+            for(let [key1, user] of Object.entries(field)){
+              // @ts-ignore
+              let name = user.name+' '+user.lastName
+              // @ts-ignore
+              if (name.toLowerCase().includes(search)) {
+                results.push(event)
+                break
+              }
+            }
+          }
+          if(key === 'date')
+            field = new Date(field).toString().substring(0,21)
+          if(field) {
+            if (field.toString().toLowerCase().includes(search)) {
+              results.push(event)
+              break
+            }
+          }
+        }
+      }
+    }
+    this.$eventList.next(results)
+  }
 }

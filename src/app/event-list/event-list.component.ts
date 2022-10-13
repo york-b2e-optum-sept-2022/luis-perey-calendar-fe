@@ -20,11 +20,9 @@ export class EventListComponent implements OnInit {
   constructor(private eventService: EventService, private userService : UserService) {
     this.eventService.$eventList.subscribe(list=>this.eventList = list)
     this.userService.$userAccount.subscribe(user=>this.currentUser = user)
-    console.log(this.eventList)
   }
 
   ngOnInit(): void {
-    console.log(this.eventList)
   }
 
   ngOnDestroy(): void {

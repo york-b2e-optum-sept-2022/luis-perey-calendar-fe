@@ -17,6 +17,7 @@ export class NavBarComponent implements OnInit {
   eventsAll: boolean = true
   eventsOwned: boolean = false
   eventsInvited: boolean = false
+  search: string = ''
 
   startDate!: Date | null
   endDate!: Date | null
@@ -63,5 +64,9 @@ export class NavBarComponent implements OnInit {
       this.eventsOwned = false
       return
     }
+  }
+
+  onSearch(){
+    this.eventService.onSearchEvents(this.search)
   }
 }

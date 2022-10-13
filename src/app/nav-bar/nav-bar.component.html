@@ -8,9 +8,9 @@
     <i (click)="onClickShowEvents('INVITED')" class="bi bi-check2-square ps-4 action" [ngClass]="eventsInvited ? 'text-success' : 'text-secondary'"> Invited</i>
   </div>
   <div *ngIf="!isCreatingEvent && !isEditingEvent">
-    <form class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-    </form>
+    <div class="d-flex" role="search">
+      <input (keyup)="onSearch()" [(ngModel)]="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    </div>
   </div>
   <div *ngIf="!isCreatingEvent && !isEditingEvent">
     <app-date-modal></app-date-modal>

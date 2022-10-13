@@ -1,5 +1,8 @@
 <form class="row row-cols-sm-auto">
   <div class="col-12">
+    From Date :
+  </div>
+  <div class="col-12">
     <div class="dp-hidden position-absolute">
       <div class="input-group">
         <input name="datepicker"
@@ -36,7 +39,7 @@
   </div>
   <div class="col-12">
     <div class="input-group">
-      <input #dpToDate
+      <span class="pe-5">To Date : </span><input #dpToDate
              class="form-control" placeholder="yyyy-mm-dd"
              name="dpToDate"
              [value]="formatter.format(toDate)"
@@ -45,7 +48,3 @@
     </div>
   </div>
 </form>
-
-<hr/>
-<pre>From date model: {{ fromDate | json }}</pre>
-<pre>To date model: {{ toDate | json }}</pre>
