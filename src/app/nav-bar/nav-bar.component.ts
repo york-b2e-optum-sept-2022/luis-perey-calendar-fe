@@ -40,6 +40,7 @@ export class NavBarComponent implements OnInit {
   }
 
   onClickLogout(){
+    this.eventService.onLogout()
     this.userService.logout()
   }
 

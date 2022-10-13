@@ -12,5 +12,5 @@
     <button type="button" class="btn btn-outline-dark" (click)="onSave()">Save</button>
   </div>
 </ng-template>
-<button *ngIf="!startDate || !endDate" class="btn btn-outline-info" (click)="open(content)">Select Dates</button>
+<button *ngIf="!startDate || !endDate" class="btn btn-outline-warning" (click)="open(content)">Select Dates</button>
 <button *ngIf="startDate && endDate" class="btn btn-outline-success" (click)="open(content)">{{ startDate | date }} - {{ endDate | date }}</button>

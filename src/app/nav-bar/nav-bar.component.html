@@ -9,7 +9,7 @@
   </div>
   <div *ngIf="!isCreatingEvent && !isEditingEvent">
     <div class="d-flex" role="search">
-      <input (keyup)="onSearch()" [(ngModel)]="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <input (input)="onSearch()" [(ngModel)]="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
     </div>
   </div>
   <div *ngIf="!isCreatingEvent && !isEditingEvent">

@@ -17,9 +17,9 @@ export class EventService {
   $isEditingEvent = new Subject<boolean>()
   $currentEvent = new BehaviorSubject<IEvent | null>(null)
 
-  startDate!: Date | null
+  private startDate!: Date | null
   $startDate = new BehaviorSubject<Date | null>(null)
-  endDate!: Date | null
+  private endDate!: Date | null
   $endDate = new BehaviorSubject<Date | null>(null)
   $fromDate = new BehaviorSubject<NgbDate | null>(null)
   $toDate = new BehaviorSubject<NgbDate | null>(null)
@@ -67,10 +67,6 @@ export class EventService {
         console.error(err) // = ERROR.EVENT_SERVICE_HTTP_ERROR
       }
     })
-  }
-
-  getEvents() {
-    return this.eventList
   }
 
   onClickNewEvent(){
@@ -169,7 +165,7 @@ export class EventService {
               // @ts-ignore
               let name = user.name+' '+user.lastName
               // @ts-ignore
-              if (name.toLowerCase().includes(search)) {
+              if (name.toLowerCase().includes(search.toLowerCase())) {
                 results.push(event)
                 break
               }
@@ -178,7 +174,7 @@ export class EventService {
           if(key === 'date')
             field = new Date(field).toString().substring(0,21)
           if(field) {
-            if (field.toString().toLowerCase().includes(search)) {
+            if (field.toString().toLowerCase().includes(search.toLowerCase())) {
               results.push(event)
               break
             }
@@ -187,5 +183,10 @@ export class EventService {
       }
     }
     this.$eventList.next(results)
+  }
+
+  onLogout(){
+    this.$isEditingEvent.next(false)
+    this.$isCreatingEvent.next(false)
   }
 }
