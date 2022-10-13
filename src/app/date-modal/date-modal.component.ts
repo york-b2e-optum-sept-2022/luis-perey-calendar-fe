@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbModal, NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import {EventService} from "../_services/event.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-date-modal',
@@ -9,6 +10,7 @@ import {EventService} from "../_services/event.service";
 })
 export class DateModalComponent implements OnInit {
 
+  subscriptions: Subscription[] = []
   closeResult = '';
   fromDate: NgbDate | null = null
   toDate: NgbDate | null = null
@@ -18,12 +20,15 @@ export class DateModalComponent implements OnInit {
 
   constructor(private modalService: NgbModal,
               private eventService: EventService) {
-    this.eventService.$startDate.subscribe(date=>this.startDate = date)
-    this.eventService.$endDate.subscribe(date=>this.endDate = date)
+    this.subscriptions.push(this.eventService.$startDate.subscribe(date=>this.startDate = date))
+    this.subscriptions.push(this.eventService.$endDate.subscribe(date=>this.endDate = date))
   }
 
   ngOnInit(){
+  }
 
+  ngOnDestroy() : void{
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe())
   }
 
   open(content: any) {

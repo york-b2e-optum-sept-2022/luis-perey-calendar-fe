@@ -1,6 +1,6 @@
 <nav class="navbar">
   <div class="p-4">
-    Hi <span *ngIf="user?.name !== null">{{ user?.name }}</span>, these are your events
+    Hi {{ user?.name }} <span *ngIf="user?.name !== null">{{ user?.name }}</span>, these are your events
   </div>
   <div *ngIf="!isCreatingEvent && !isEditingEvent">
     <i (click)="onClickShowEvents('ALL')" class="bi bi-check2-square action" [ngClass]="eventsAll ? 'text-success' : 'text-secondary'"> All</i>
@@ -18,6 +18,7 @@
   <div *ngIf="!isCreatingEvent && !isEditingEvent">
     <button (click)="onClickNew()" class="btn btn-outline-primary" >New Event</button>
   </div>
+
   <div>
     <button (click)="onClickLogout()" class="btn btn-outline-dark" >Logout</button>
   </div>

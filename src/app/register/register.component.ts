@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {IUser} from "../_interfaces/IUser";
 import {UserService} from "../_services/user.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-register',
@@ -9,6 +10,7 @@ import {UserService} from "../_services/user.service";
 })
 export class RegisterComponent implements OnInit {
 
+  subscription: Subscription
   user : IUser = {
     id: '',
     name: '',
@@ -20,11 +22,14 @@ export class RegisterComponent implements OnInit {
   message: string = ''
 
   constructor(private userService: UserService) {
-    this.userService.$message.subscribe(
-      (mes) => this.message = mes)
+    this.subscription = this.userService.$message.subscribe((mes) => this.message = mes)
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 
   onSubmitRegister() {

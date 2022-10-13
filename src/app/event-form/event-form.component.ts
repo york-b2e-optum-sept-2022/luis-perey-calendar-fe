@@ -7,6 +7,7 @@ import {v4 as uuid} from 'uuid';
 import { EventService } from '../_services/event.service';
 import {ERROR} from "../_enums/ERROR";
 import {IEventError} from "../_interfaces/IEventError";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-event-form',
@@ -15,10 +16,12 @@ import {IEventError} from "../_interfaces/IEventError";
 })
 export class EventFormComponent implements OnInit {
 
+  subscriptions: Subscription[] = []
   eventForm!: FormGroup;
   invitees! : IUser[]
   userAccount! : IUser | null
   event!: IEvent | null
+
   error : IEventError = {
     name: null,
     description: null,
@@ -32,9 +35,9 @@ export class EventFormComponent implements OnInit {
   constructor(private userService: UserService,
               private fb:FormBuilder,
               private eventService: EventService) {
-    this.userService.$inviteesAccounts.subscribe(val=> this.invitees = val)
-    this.userService.$userAccount.subscribe(val=>this.userAccount = val)
-    this.eventService.$currentEvent.subscribe(val=>this.event = val)
+    this.subscriptions.push(this.userService.$inviteesAccounts.subscribe(val=> this.invitees = val))
+    this.subscriptions.push(this.userService.$userAccount.subscribe(val=>this.userAccount = val))
+    this.subscriptions.push(this.eventService.$currentEvent.subscribe(val=>this.event = val))
   }
 
   ngOnInit(): void {
@@ -57,6 +60,10 @@ export class EventFormComponent implements OnInit {
       duration: this.event?.duration,
       invitees: this.buildInvitees()
     })
+  }
+
+  ngOnDestroy(){
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe())
   }
 
   get name() {

@@ -3,6 +3,7 @@ import {IUser} from "../_interfaces/IUser";
 import {EventService} from "../_services/event.service";
 import { UserService } from '../_services/user.service';
 import {EVENT_TYPE} from "../_enums/EVENT_TYPE";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-nav-bar',
@@ -11,6 +12,7 @@ import {EVENT_TYPE} from "../_enums/EVENT_TYPE";
 })
 export class NavBarComponent implements OnInit {
 
+  subscriptions: Subscription[] = []
   @Input() user = {} as IUser | null
   isCreatingEvent: boolean = false
   isEditingEvent: boolean = false
@@ -24,13 +26,17 @@ export class NavBarComponent implements OnInit {
 
   constructor(private eventService: EventService,
               private userService: UserService) {
-    this.eventService.$isCreatingEvent.subscribe(status=> this.isCreatingEvent = status)
-    this.eventService.$isEditingEvent.subscribe(status=> this.isEditingEvent = status)
-    this.eventService.$startDate.subscribe(date=> this.startDate = date)
-    this.eventService.$endDate.subscribe(date=> this.endDate = date)
+    this.subscriptions.push(this.eventService.$isCreatingEvent.subscribe(status=> this.isCreatingEvent = status))
+    this.subscriptions.push(this.eventService.$isEditingEvent.subscribe(status=> this.isEditingEvent = status))
+    this.subscriptions.push(this.eventService.$startDate.subscribe(date=> this.startDate = date))
+    this.subscriptions.push(this.eventService.$endDate.subscribe(date=> this.endDate = date))
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe())
   }
 
   onClickNew(){

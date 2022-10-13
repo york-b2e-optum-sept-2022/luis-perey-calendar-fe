@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {NgbCalendar, NgbDate, NgbDateParserFormatter} from "@ng-bootstrap/ng-bootstrap";
 import {EventService} from "../_services/event.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-date-picker-range',
@@ -10,6 +11,7 @@ import {EventService} from "../_services/event.service";
 export class DatePickerRangeComponent implements OnInit {
 
   hoveredDate: NgbDate | null = null;
+  subscriptions: Subscription[] = []
 
   @Output() onStartDate = new EventEmitter<NgbDate | null>;
   @Output() onEndDate = new EventEmitter<NgbDate | null>;
@@ -20,11 +22,15 @@ export class DatePickerRangeComponent implements OnInit {
   constructor(private calendar: NgbCalendar,
               public formatter: NgbDateParserFormatter,
               private eventService: EventService) {
-    this.eventService.$fromDate.subscribe(date => this.fromDate = date)
-    this.eventService.$toDate.subscribe(date => this.toDate = date)
+    this.subscriptions.push(this.eventService.$fromDate.subscribe(date => this.fromDate = date))
+    this.subscriptions.push(this.eventService.$toDate.subscribe(date => this.toDate = date))
   }
 
   ngOnInit(){
+  }
+
+  ngOnDestroy(){
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe())
   }
 
   onDateSelection(date: NgbDate) {
@@ -36,10 +42,8 @@ export class DatePickerRangeComponent implements OnInit {
       this.toDate = null;
       this.fromDate = date;
     }
-    console.log(this.toDate, this.fromDate)
     this.onStartDate.emit(this.fromDate)
     this.onEndDate.emit(this.toDate)
-    // this.eventService.setDates(this.fromDate,this.toDate)
   }
 
   isHovered(date: NgbDate) {

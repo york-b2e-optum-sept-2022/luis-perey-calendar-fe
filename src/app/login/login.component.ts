@@ -3,6 +3,7 @@ import {UserService} from "../_services/user.service";
 import {ILoginForm} from "../_interfaces/ILoginForm";
 import {IUser} from "../_interfaces/IUser";
 import {NgForm} from "@angular/forms";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -11,15 +12,19 @@ import {NgForm} from "@angular/forms";
 })
 export class LoginComponent implements OnInit {
 
+  subscription: Subscription
   user! : IUser
   message: string = ''
 
   constructor(private userService: UserService) {
-    this.userService.$message.subscribe(
-      (message) => this.message = message)
+    this.subscription = this.userService.$message.subscribe((message) => this.message = message)
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 
   onClickRegister() {
