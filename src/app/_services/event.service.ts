@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, first, Subject} from "rxjs";
 import {HttpService} from "./http.service";
-import {IUser} from "../_interfaces/IUser";
 import {IEvent} from "../_interfaces/IEvent";
 import {EVENT_TYPE} from "../_enums/EVENT_TYPE";
 import {NgbDate} from "@ng-bootstrap/ng-bootstrap";
+import {ERROR} from "../_enums/ERROR";
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +24,10 @@ export class EventService {
   $fromDate = new BehaviorSubject<NgbDate | null>(null)
   $toDate = new BehaviorSubject<NgbDate | null>(null)
 
-  private eventOwner!: IUser
   private eventList! : IEvent[]
   private event!: IEvent
   private userId!: string
-  private eventType!: EVENT_TYPE
+  private eventType: EVENT_TYPE = EVENT_TYPE.ALL
 
   constructor(private httpService: HttpService) { }
 
@@ -53,37 +52,20 @@ export class EventService {
           this.eventList = this.eventList.filter(x=>x.ownerId.id === id)
         }
         if (this.startDate && this.endDate) {
-          console.log(this.startDate, this.endDate)
           // @ts-ignore
-          this.eventList.map(x => console.log(x.date, (new Date(x.date).getTime() - this.startDate?.getTime())/3600))
-          // @ts-ignore
-          this.eventList.map(x => console.log(x.date.substring(0,10), this.startDate?.toLocaleDateString('fr-CA')))
-          // @ts-ignore
-          this.eventList = this.eventList.filter(x => (new Date(x.date).getTime() >= this.startDate?.getTime()) && (new Date(x.date.substring(0,10)).getTime() <= this.endDate?.getTime()))
+          this.eventList = this.eventList.filter(event => (new Date(event.date).getTime() >= this.startDate?.getTime()) && (new Date(event.date.substring(0,10)).getTime() <= this.endDate?.getTime()))
         }
         this.$eventList.next(this.eventList)
       },
-      error: (err) => {
-        console.error(err) // = ERROR.EVENT_SERVICE_HTTP_ERROR
+      error: () => {
+        this.$eventError.next(ERROR.EVENT_SERVICE_HTTP_ERROR)
       }
     })
   }
 
   onClickNewEvent(){
     this.$isCreatingEvent.next(true)
-    this.event = {
-      id:'',
-      ownerId:this.eventOwner,
-      date: new Date(),
-      name: '',
-      description: '',
-      place: '',
-      address: '',
-      duration: 0,
-      // @ts-ignore
-      invitees: []
-      }
-    this.$currentEvent.next(this.event)
+    this.$currentEvent.next(null)
   }
 
   onClickCancel() {
@@ -106,7 +88,7 @@ export class EventService {
   deleteEvent(eventId: string, userId: string) {
     this.httpService.deleteEvent(eventId).pipe(first()).subscribe({
       next:()=>{
-        this.getEventList(userId, EVENT_TYPE.ALL)
+        this.getEventList(userId, this.eventType)
       },
       error:(err)=>{
         console.error(err)
@@ -115,9 +97,10 @@ export class EventService {
   }
 
   updateEvent(event: IEvent){
+    console.log(event)
     this.httpService.updateEvent(event).pipe(first()).subscribe({
       next:(data)=>{
-        this.getEventList(data.ownerId.id, EVENT_TYPE.ALL)
+        this.getEventList(data.ownerId.id, this.eventType)
         this.$isEditingEvent.next(false)
       },
       error:(err)=>{
@@ -188,5 +171,6 @@ export class EventService {
   onLogout(){
     this.$isEditingEvent.next(false)
     this.$isCreatingEvent.next(false)
+    this.cleanDates()
   }
 }

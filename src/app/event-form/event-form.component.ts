@@ -5,6 +5,8 @@ import {UserService} from "../_services/user.service";
 import { IEvent } from '../_interfaces/IEvent';
 import {v4 as uuid} from 'uuid';
 import { EventService } from '../_services/event.service';
+import {ERROR} from "../_enums/ERROR";
+import {IEventError} from "../_interfaces/IEventError";
 
 @Component({
   selector: 'app-event-form',
@@ -17,6 +19,15 @@ export class EventFormComponent implements OnInit {
   invitees! : IUser[]
   userAccount! : IUser | null
   event!: IEvent | null
+  error : IEventError = {
+    name: null,
+    description: null,
+    place: null,
+    address: null,
+    date: null,
+    time: null,
+    duration: null
+  }
 
   constructor(private userService: UserService,
               private fb:FormBuilder,
@@ -27,11 +38,12 @@ export class EventFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let eventDate = {}
-    let eventTime = {}
-    if (this.event?.id !== '') {
+    let eventDate = null
+    let eventTime = null
+    if (this.event) {
+      console.log(typeof this.event.date, this.event.date)
       // @ts-ignore
-      let d = new Date(Date.parse(this.event?.date))
+      let d = new Date(Date.parse(this.event.date))
       eventDate = {year: d.getFullYear(), month:d.getMonth()+1,day:d.getDate()}
       eventTime = {hour: d.getHours(), minute:d.getMinutes()}
     }
@@ -47,6 +59,13 @@ export class EventFormComponent implements OnInit {
     })
   }
 
+  get name() {
+    let space :string = ''
+    if (!this.eventForm.get('name'))
+      return space
+    return this.eventForm.get('name');
+  }
+
   buildInvitees(){
     return this.fb.array(this.invitees.map(x=> {
       return new FormControl(this.event?.invitees.map(x=>x.id).includes(x.id))
@@ -58,36 +77,64 @@ export class EventFormComponent implements OnInit {
     valueSubmit = Object.assign(valueSubmit,{
       invitees: valueSubmit.invitees.map((v:boolean,i:number)=> v ? this.invitees[i] : null).filter((v: any) => v !== null)
     })
+    this.error = {
+      name: null,
+      description: null,
+      place: null,
+      address: null,
+      date: null,
+      time: null,
+      duration: null
+    }
+    if(!valueSubmit.name){
+      this.error.name = ERROR.EVENT_INVALID_NAME
+      return
+    }
+    if (!valueSubmit.description){
+      this.error.description = ERROR.EVENT_INVALID_DESCRIPTION
+      return
+    }
+    if (!valueSubmit.place){
+      this.error.place = ERROR.EVENT_INVALID_PLACE
+      return
+    }
+    if (!valueSubmit.address){
+      this.error.address = ERROR.EVENT_INVALID_ADDRESS
+      return
+    }
+    if (!valueSubmit.date){
+      this.error.date = ERROR.EVENT_INVALID_DATE
+      return
+    }
+    if (!valueSubmit.time){
+      this.error.time = ERROR.EVENT_INVALID_TIME
+      return
+    }
+    if (!valueSubmit.duration){
+      this.error.duration = ERROR.EVENT_INVALID_DURATION
+      return
+    }
+    if (valueSubmit.duration < 15){
+      this.error.duration = ERROR.EVENT_INVALID_DURATION_TIME
+      return
+    }
     let date = this.eventForm.value.date
     let time = this.eventForm.value.time
-    console.log(date, time)
-    if(!this.event?.id) {
-      let newEvent: IEvent = {
-        id: uuid(),
-        // @ts-ignore
-        ownerId: this.userAccount,
-        date: new Date(date.year, date.month-1, date.day,time.hour, time.minute, time.second),
-        name: this.eventForm.value.name,
-        description: this.eventForm.value.description,
-        place: this.eventForm.value.place,
-        address: this.eventForm.value.address,
-        invitees: valueSubmit.invitees
-      }
-      this.eventService.createNewEvent(newEvent)
-    } else {
-      let event: IEvent = {
-        id: this.event.id,
-        // @ts-ignore
-        ownerId: this.userAccount,
-        date: new Date(date.year, date.month-1, date.day,time.hour, time.minute, 0),
-        name: this.eventForm.value.name,
-        description: this.eventForm.value.description,
-        place: this.eventForm.value.place,
-        address: this.eventForm.value.address,
-        invitees: valueSubmit.invitees
-      }
-      this.eventService.updateEvent(event)
+    const newEvent = !this.event?.id
+    console.log(new Date(date.year, date.month-1, date.day,time.hour, time.minute, time.second))
+    let event: IEvent = {
+      id: !this.event?.id ? uuid() : this.event.id,
+      // @ts-ignore
+      ownerId: this.userAccount,
+      date: new Date(date.year, date.month-1, date.day,time.hour, time.minute, 0),
+      name: this.eventForm.value.name,
+      description: this.eventForm.value.description,
+      place: this.eventForm.value.place,
+      address: this.eventForm.value.address,
+      duration: this.eventForm.value.duration,
+      invitees: valueSubmit.invitees
     }
+    newEvent ? this.eventService.createNewEvent(event) : this.eventService.updateEvent(event)
   }
 
   onCancelClick(){

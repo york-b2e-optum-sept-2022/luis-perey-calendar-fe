@@ -1,50 +1,68 @@
 <div>
-  <div>
-    <H2>New Event</H2>
-  </div>
   <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+    <div class="d-flex">
+      <div>
+        <H2 *ngIf="!event">New Event</H2>
+        <H2 *ngIf="event">Update Event</H2>
+      </div>
+      <div class="ps-5 pe-5">
+        <button (click)="onCancelClick()" class="btn btn-dark">Cancel</button>
+      </div>
+      <div>
+        <button class="btn btn-dark" type="submit">Submit</button>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-6">
-        <div>
+        <div class="p-2">
           <label>Name : </label>
           <input type="text" class="text form-control" formControlName="name">
         </div>
-        <div>
+        <div *ngIf="error.name" class="text-danger">{{ error.name }}</div>
+        <div class="p-2">
           <label>Description : </label>
           <input type="text" class="text form-control" formControlName="description">
         </div>
-        <div>
+        <div *ngIf="error.description" class="text-danger">{{ error.description }}</div>
+        <div class="p-2">
           <label>Place : </label>
           <input type="text" class="text form-control" formControlName="place">
         </div>
-        <div>
+        <div *ngIf="error.place" class="text-danger">{{ error.place }}</div>
+        <div class="p-2">
           <label>Address : </label>
           <input type="text" class="text form-control" formControlName="address">
         </div>
-        <div>
+        <div *ngIf="error.address" class="text-danger">{{ error.address }}</div>
+        <div class="p-2">
           <label>Invite :</label>
           <div *ngFor="let item of invitees; let i = index" class="checkbox" formArrayName="invitees">
             <input type="checkbox" [formControlName]="i"> {{ item.name }} {{ item.lastName }}
           </div>
         </div>
       </div>
-      <div class="col-sm-6">
-        <div>
+      <div class="col-sm-3">
+        <div class="p-2">
           <label>Event Date : </label>
           <div class="input-group">
             <input class="form-control"
                    formControlName="date" ngbDatepicker #d="ngbDatepicker">
             <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i class="bi bi-calendar3"></i></button>
           </div>
+          <div *ngIf="error.date" class="text-danger">{{ error.date }}</div>
         </div>
-        <div>
+        <div class="p-2">
           <label>Time : </label>
           <ngb-timepicker [formControlName]="'time'" [seconds]="false"
                           [hourStep]="1" [minuteStep]="30" [meridian]="true"></ngb-timepicker>
         </div>
+        <div *ngIf="error.time" class="text-danger">{{ error.time }}</div>
+        <div class="p-2">
+          <label>Duration (Minutes): </label>
+          <input type="number" class="text form-control" formControlName="duration" step="15" min="15">
+        </div>
+        <div *ngIf="error.duration" class="text-danger">{{ error.duration }}</div>
       </div>
     </div>
-    <button (click)="onCancelClick()" class="btn btn-dark">Cancel</button>
-    <button class="btn btn-dark" type="submit">Submit</button>
   </form>
 </div>

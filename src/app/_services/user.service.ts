@@ -45,8 +45,8 @@ export class UserService {
         this.inviteesAccounts = accounts.filter(user => user.id !== this.userAccount.id)
         this.$inviteesAccounts.next(this.inviteesAccounts)
       },
-      error:(err)=>{
-        console.error(err)
+      error:()=>{
+        this.$message.next(ERROR.EVENT_SERVICE_HTTP_ERROR)
       }
     })
   }
@@ -56,8 +56,8 @@ export class UserService {
       next:(user)=>{
         this.$userOwner.next(user[0])
       },
-      error:(err)=>{
-        console.error(err)
+      error:()=>{
+        this.$message.next(ERROR.LOGIN_HTTP_ERROR)
       }
     })
   }
