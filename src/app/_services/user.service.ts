@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject, first, Subject} from "rxjs";
 import {v4 as uuid} from 'uuid';
 import {ILoginForm} from "../_interfaces/ILoginForm";
@@ -6,6 +6,7 @@ import {ERROR} from "../_enums/ERROR";
 import {IUser} from "../_interfaces/IUser";
 import {HttpService} from "./http.service";
 import {EventService} from "./event.service";
+import {EVENT_TYPE} from "../_enums/EVENT_TYPE";
 
 @Injectable({
   providedIn: 'root'
@@ -81,7 +82,7 @@ export class UserService {
         this.userAccount = userOk
         this.$userAccount.next(userOk)
         this.$isLoggedIn.next(true)
-        this.eventService.getEventList(userOk.id)
+        this.eventService.getEventList(userOk.id, EVENT_TYPE.ALL)
         this.getInviteesAccounts()
       },
       error: () => {
@@ -128,7 +129,7 @@ export class UserService {
             console.error(err)
           }
         })
-        this.eventService.getEventList(user.id)
+        this.eventService.getEventList(user.id, EVENT_TYPE.ALL)
         this.setRegistering(false)
       },
       error: ()=>{

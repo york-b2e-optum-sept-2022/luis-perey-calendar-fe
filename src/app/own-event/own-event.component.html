@@ -1,4 +1,4 @@
-<div class="contasiner">
+<div>
   <div class="row">
     <div class="col-md-12">
       <div class="card-group evet-card text-light mb-2">
@@ -11,6 +11,9 @@
                 </div>
                 <div class="display-6">
                   {{ event.date | date: 'LLL'}}
+                </div>
+                <div>
+                  {{ event.date | date: 'yyyy'}}
                 </div>
               </div>
               <div class="col-7 col-sm-9">
@@ -44,14 +47,14 @@
               </div>
               <div class="col-7 col-sm-8 bg-white text-dark">
                 <div class="d-flex">
-                  <div>
+                  <div class="pt-2 flex-grow-1">
                     Invitees :
                   </div>
-                  <div>
-                    <i *ngIf="event?.ownerId?.id === user?.id" (click)="onEditClick()" class="bi bi-pencil-square text-success"></i>
+                  <div class="p-2 fs-4">
+                    <i *ngIf="event?.ownerId?.id === user?.id" (click)="onEditClick()" class="bi bi-pencil-square text-success action"  placement="top" ngbTooltip="Edit Event"></i>
                   </div>
-                  <div>
-                    <i *ngIf="event?.ownerId?.id === user?.id" (click)="onClickDelete()" class="bi bi-x-circle text-danger"></i>
+                  <div class="p-2 fs-4">
+                    <i *ngIf="event?.ownerId?.id === user?.id" (click)="onClickDelete()" class="bi bi-x-circle text-danger action" placement="top" ngbTooltip="Delete Event"></i>
                   </div>
                 </div>
                 <ul>

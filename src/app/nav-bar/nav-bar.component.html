@@ -1,11 +1,24 @@
 <nav class="navbar">
-  <div>
-    Hi <span *ngIf="user?.name !== null">{{ user?.name }}</span>
+  <div class="p-4">
+    Hi <span *ngIf="user?.name !== null">{{ user?.name }}</span>, these are your events
+  </div>
+  <div *ngIf="!isCreatingEvent && !isEditingEvent">
+    <i (click)="onClickShowEvents('ALL')" class="bi bi-check2-square action" [ngClass]="eventsAll ? 'text-success' : 'text-secondary'"> All</i>
+    <i (click)="onClickShowEvents('OWNED')" class="bi bi-check2-square ps-4 action" [ngClass]="eventsOwned ? 'text-success' : 'text-secondary'"> Owned</i>
+    <i (click)="onClickShowEvents('INVITED')" class="bi bi-check2-square ps-4 action" [ngClass]="eventsInvited ? 'text-success' : 'text-secondary'"> Invited</i>
+  </div>
+  <div *ngIf="!isCreatingEvent && !isEditingEvent">
+    <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    </form>
+  </div>
+  <div *ngIf="!isCreatingEvent && !isEditingEvent">
+    <app-date-modal></app-date-modal>
+  </div>
+  <div *ngIf="!isCreatingEvent && !isEditingEvent">
+    <button (click)="onClickNew()" class="btn btn-outline-primary" >New Event</button>
   </div>
   <div>
-    <button *ngIf="!isCreatingEvent" (click)="onClickNew()" >New Event</button>
-  </div>
-  <div>
-    <button (click)="onClickLogout()" >Logout</button>
+    <button (click)="onClickLogout()" class="btn btn-outline-dark" >Logout</button>
   </div>
 </nav>

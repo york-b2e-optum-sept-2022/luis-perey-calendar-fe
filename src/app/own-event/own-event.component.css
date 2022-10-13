@@ -8,3 +8,7 @@
 .evet-card > .card {
   background: #242021;
 }
+
+.action {
+  cursor: pointer;
+}

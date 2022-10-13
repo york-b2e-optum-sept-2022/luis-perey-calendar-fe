@@ -1,0 +1,16 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <app-date-picker-range (onStartDate)="getStartDate($event)" (onEndDate)="getEndDate($event)"></app-date-picker-range>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-outline-danger" (click)="onClickClear()">Clear Dates</button>
+    <button class="btn btn-outline-info" (click)="modal.close('Close')">Cancel</button>
+    <button type="button" class="btn btn-outline-dark" (click)="onSave()">Save</button>
+  </div>
+</ng-template>
+<button *ngIf="!startDate || !endDate" class="btn btn-outline-info" (click)="open(content)">Select Dates</button>
+<button *ngIf="startDate && endDate" class="btn btn-outline-success" (click)="open(content)">{{ startDate | date }} - {{ endDate | date }}</button>

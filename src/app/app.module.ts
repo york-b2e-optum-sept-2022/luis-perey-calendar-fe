@@ -12,6 +12,8 @@ import { InviteEventComponent } from './invite-event/invite-event.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { EventFormComponent } from './event-form/event-form.component';
+import { DatePickerRangeComponent } from './date-picker-range/date-picker-range.component';
+import { DateModalComponent } from './date-modal/date-modal.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { EventFormComponent } from './event-form/event-form.component';
     OwnEventComponent,
     InviteEventComponent,
     NavBarComponent,
-    EventFormComponent
+    EventFormComponent,
+    DatePickerRangeComponent,
+    DateModalComponent
   ],
   imports: [
     BrowserModule,
