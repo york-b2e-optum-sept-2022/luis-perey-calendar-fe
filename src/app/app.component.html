@@ -5,11 +5,16 @@
   </div>
   <div *ngIf="isLoggedIn">
     <app-nav-bar [user]="user"></app-nav-bar>
-    <div *ngIf="isCreatingEvent || isEditingEvent">
-      <app-event-form></app-event-form>
-    </div>
-    <div *ngIf="!isCreatingEvent && !isEditingEvent">
-      <app-event-list></app-event-list>
-    </div>
+      <div *ngIf="!isSoloEvent">
+        <div *ngIf="isCreatingEvent || isEditingEvent">
+          <app-event-form></app-event-form>
+        </div>
+        <div *ngIf="!isCreatingEvent && !isEditingEvent">
+          <app-event-list></app-event-list>
+        </div>
+      </div>
+      <div *ngIf="isSoloEvent">
+        <app-solo-event></app-solo-event>
+      </div>
   </div>
 </div>

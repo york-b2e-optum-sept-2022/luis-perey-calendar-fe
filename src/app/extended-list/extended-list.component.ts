@@ -6,11 +6,11 @@ import {UserService} from "../_services/user.service";
 import {Subscription} from "rxjs";
 
 @Component({
-  selector: 'app-own-event',
-  templateUrl: './own-event.component.html',
-  styleUrls: ['./own-event.component.css']
+  selector: 'app-extended-list',
+  templateUrl: './extended-list.component.html',
+  styleUrls: ['./extended-list.component.css']
 })
-export class OwnEventComponent implements OnInit {
+export class ExtendedListComponent implements OnInit {
 
   subscription: Subscription
   @Input() event! : IEvent
@@ -33,7 +33,10 @@ export class OwnEventComponent implements OnInit {
   }
 
   onEditClick(){
-    console.log(this.event)
     this.eventService.onClickEdit(this.event)
+  }
+
+  onClickViewEvent(id: string){
+    this.eventService.getEventById(id)
   }
 }

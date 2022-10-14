@@ -16,10 +16,12 @@ export class EventService {
   $isCreatingEvent = new Subject<boolean>()
   $isEditingEvent = new Subject<boolean>()
   $currentEvent = new BehaviorSubject<IEvent | null>(null)
+  $typeView = new BehaviorSubject<boolean>(true)
+  $isSoloEvent = new BehaviorSubject<boolean>(false)
 
-  private startDate!: Date | null
+  private startDate!: Date
   $startDate = new BehaviorSubject<Date | null>(null)
-  private endDate!: Date | null
+  private endDate!: Date
   $endDate = new BehaviorSubject<Date | null>(null)
   $fromDate = new BehaviorSubject<NgbDate | null>(null)
   $toDate = new BehaviorSubject<NgbDate | null>(null)
@@ -36,6 +38,7 @@ export class EventService {
     this.eventType = type
     this.httpService.getEvents().pipe(first()).subscribe({
       next: (list) => {
+        list.map(x=>x.date = new Date(x.date))
         this.eventList = list.filter(x=>x.ownerId.id === id || x.invitees.map(v=>v.id).includes(id)).sort((a,b) =>{
           if (a.date > b.date) {
             return 1
@@ -51,13 +54,26 @@ export class EventService {
         if (type === EVENT_TYPE.OWNED) {
           this.eventList = this.eventList.filter(x=>x.ownerId.id === id)
         }
-        if (this.startDate && this.endDate) {
-          // @ts-ignore
-          this.eventList = this.eventList.filter(event => (new Date(event.date).getTime() >= this.startDate?.getTime()) && (new Date(event.date.substring(0,10)).getTime() <= this.endDate?.getTime()))
+        if (this.startDate !== this.endDate) {
+          this.eventList = this.eventList.filter(event => (event.date >= this.startDate) && (event.date.getTime() <= this.endDate.getTime() + 86400000))
         }
         this.$eventList.next(this.eventList)
       },
       error: () => {
+        this.$eventError.next(ERROR.EVENT_SERVICE_HTTP_ERROR)
+      }
+    })
+  }
+
+  getEventById(id: string) {
+    this.httpService.getEventById(id).pipe(first()).subscribe({
+      next:(data)=>{
+        data.date = new Date(data.date)
+        this.$currentEvent.next(data)
+        this.event = data
+        this.$isSoloEvent.next(true)
+      },
+      error:()=>{
         this.$eventError.next(ERROR.EVENT_SERVICE_HTTP_ERROR)
       }
     })
@@ -79,8 +95,8 @@ export class EventService {
         this.$isCreatingEvent.next(false)
         this.getEventList(data.ownerId.id, EVENT_TYPE.ALL)
       },
-      error:(err)=>{
-        console.error(err)
+      error:()=>{
+        this.$eventError.next(ERROR.EVENT_SERVICE_HTTP_ERROR)
       }
     })
   }
@@ -90,8 +106,8 @@ export class EventService {
       next:()=>{
         this.getEventList(userId, this.eventType)
       },
-      error:(err)=>{
-        console.error(err)
+      error:()=>{
+        this.$eventError.next(ERROR.EVENT_SERVICE_HTTP_ERROR)
       }
     })
   }
@@ -103,8 +119,8 @@ export class EventService {
         this.getEventList(data.ownerId.id, this.eventType)
         this.$isEditingEvent.next(false)
       },
-      error:(err)=>{
-        console.error(err)
+      error:()=>{
+        this.$eventError.next(ERROR.EVENT_SERVICE_HTTP_ERROR)
       }
     })
   }
@@ -133,8 +149,8 @@ export class EventService {
     this.$endDate.next(null)
     this.$fromDate.next(null)
     this.$toDate.next(null)
-    this.startDate = null
-    this.endDate = null
+    this.startDate = new Date()
+    this.endDate = this.startDate
     this.getEventList(this.userId, this.eventType)
   }
 
@@ -147,7 +163,6 @@ export class EventService {
             for(let [key1, user] of Object.entries(field)){
               // @ts-ignore
               let name = user.name+' '+user.lastName
-              // @ts-ignore
               if (name.toLowerCase().includes(search.toLowerCase())) {
                 results.push(event)
                 break

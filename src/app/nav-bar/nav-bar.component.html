@@ -1,24 +1,28 @@
 <nav class="navbar">
   <div class="p-4">
-    Hi {{ user?.name }} <span *ngIf="user?.name !== null">{{ user?.name }}</span>, these are your events
+    Hi {{ user?.name }}, these are your events
   </div>
-  <div *ngIf="!isCreatingEvent && !isEditingEvent">
-    <i (click)="onClickShowEvents('ALL')" class="bi bi-check2-square action" [ngClass]="eventsAll ? 'text-success' : 'text-secondary'"> All</i>
-    <i (click)="onClickShowEvents('OWNED')" class="bi bi-check2-square ps-4 action" [ngClass]="eventsOwned ? 'text-success' : 'text-secondary'"> Owned</i>
-    <i (click)="onClickShowEvents('INVITED')" class="bi bi-check2-square ps-4 action" [ngClass]="eventsInvited ? 'text-success' : 'text-secondary'"> Invited</i>
+  <div *ngIf="!isCreatingEvent && !isEditingEvent" class="d-flex flex-column">
+    <i (click)="onClickShowEvents('ALL')" class="bi bi-check2-square action" [ngClass]="eventsAll && !isSoloEvent ? 'text-success' : 'text-secondary'"> All</i>
+    <i (click)="onClickShowEvents('OWNED')" class="bi bi-check2-square action" [ngClass]="eventsOwned && !isSoloEvent ? 'text-success' : 'text-secondary'"> Owned</i>
+    <i (click)="onClickShowEvents('INVITED')" class="bi bi-check2-square action" [ngClass]="eventsInvited && !isSoloEvent ? 'text-success' : 'text-secondary'"> Invited</i>
   </div>
-  <div *ngIf="!isCreatingEvent && !isEditingEvent">
+  <div *ngIf="!isCreatingEvent && !isEditingEvent" class="d-flex flex-column">
+    <i class="action" [ngClass]="eventsAll ? 'text-dark' : 'text-secondary'"> View</i>
+    <i (click)="onClickViewType('EXTENDED')" class="bi bi-check2-square action" [ngClass]="extendedList && !isSoloEvent ? 'text-success' : 'text-secondary'"> Extended</i>
+    <i (click)="onClickViewType('LIMITED')" class="bi bi-check2-square action" [ngClass]="!extendedList && !isSoloEvent ? 'text-success' : 'text-secondary'"> Limited</i>
+  </div>
+  <div *ngIf="!isCreatingEvent && !isEditingEvent && !isSoloEvent">
     <div class="d-flex" role="search">
       <input (input)="onSearch()" [(ngModel)]="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
     </div>
   </div>
-  <div *ngIf="!isCreatingEvent && !isEditingEvent">
+  <div *ngIf="!isCreatingEvent && !isEditingEvent && !isSoloEvent">
     <app-date-modal></app-date-modal>
   </div>
   <div *ngIf="!isCreatingEvent && !isEditingEvent">
     <button (click)="onClickNew()" class="btn btn-outline-primary" >New Event</button>
   </div>
-
   <div>
     <button (click)="onClickLogout()" class="btn btn-outline-dark" >Logout</button>
   </div>

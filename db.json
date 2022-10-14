@@ -148,11 +148,19 @@
         "password": "12345"
       },
       "date": "2022-10-14T04:30:00.000Z",
-      "name": "",
-      "description": null,
-      "place": null,
-      "address": null,
+      "name": "Event",
+      "description": "Big party",
+      "place": "New York",
+      "address": "Empire State",
+      "duration": 45,
       "invitees": [
+        {
+          "id": "74dd55e5-a9b1-41f7-9a6d-0a392a87e7ac",
+          "name": "Claudia",
+          "lastName": "Martinez",
+          "email": "claudia@admin.com",
+          "password": "12345"
+        },
         {
           "id": "3b9cadeb-a43d-4bb9-a9bf-ba3eb0ed7894",
           "name": "Carlos",
@@ -187,22 +195,6 @@
       ]
     },
     {
-      "id": "bcea200d-1441-49f1-bee2-c9e9dbb314f3",
-      "ownerId": {
-        "id": "cf5996ac-c2ab-48bc-b295-2c8eb20a779a",
-        "name": "Ignacio",
-        "lastName": "Perey",
-        "email": "admin@admin.com",
-        "password": "admin"
-      },
-      "date": "2023-05-10T20:30:00.000Z",
-      "name": "",
-      "description": "",
-      "place": "",
-      "address": "",
-      "invitees": []
-    },
-    {
       "id": "bb34203e-d899-4cf5-b3b7-63e97ef86bcc",
       "ownerId": {
         "id": "cf5996ac-c2ab-48bc-b295-2c8eb20a779a",
@@ -216,7 +208,7 @@
       "description": "Party",
       "place": "Home",
       "address": "1123 nw 4",
-      "duration": 15,
+      "duration": 30,
       "invitees": [
         {
           "id": "74dd55e5-a9b1-41f7-9a6d-0a392a87e7ac",
@@ -251,10 +243,11 @@
         "password": "12345"
       },
       "date": "2022-10-20T06:30:00.000Z",
-      "name": "",
-      "description": "",
-      "place": "",
-      "address": "",
+      "name": "Football Game",
+      "description": "49ers - Dolphins",
+      "place": "Miami",
+      "address": "Hard Rock Cafe Stadium",
+      "duration": 180,
       "invitees": [
         {
           "id": "38175e6d-16dd-4db8-91fa-0898a449736d",
@@ -342,7 +335,22 @@
       "place": "d",
       "address": "d",
       "duration": 15,
-      "invitees": []
+      "invitees": [
+        {
+          "id": "38175e6d-16dd-4db8-91fa-0898a449736d",
+          "name": "Luis",
+          "lastName": "Perey",
+          "email": "luis@admin.com",
+          "password": "12345"
+        },
+        {
+          "id": "74dd55e5-a9b1-41f7-9a6d-0a392a87e7ac",
+          "name": "Claudia",
+          "lastName": "Martinez",
+          "email": "claudia@admin.com",
+          "password": "12345"
+        }
+      ]
     },
     {
       "id": "84fdead3-2f0f-4c50-92d2-e008a85f81f6",
@@ -385,7 +393,7 @@
         "email": "admin@admin.com",
         "password": "admin"
       },
-      "date": "2023-01-04T19:30:00.000Z",
+      "date": "2022-12-28T19:30:00.000Z",
       "name": "Prueba de Nuevo Evento",
       "description": "daskjfh adskfj adskfkjdsf kjdsfasdf",
       "place": "US",
@@ -445,6 +453,77 @@
           "lastName": "Perey",
           "email": "admin@admin.com",
           "password": "admin"
+        }
+      ]
+    },
+    {
+      "id": "e43cda51-6360-48e7-aab4-2489244300ae",
+      "ownerId": {
+        "id": "cf5996ac-c2ab-48bc-b295-2c8eb20a779a",
+        "name": "Ignacio",
+        "lastName": "Perey",
+        "email": "admin@admin.com",
+        "password": "admin"
+      },
+      "date": "2022-11-19T06:30:00.000Z",
+      "name": "Test 23",
+      "description": "description",
+      "place": "place",
+      "address": "address",
+      "duration": 60,
+      "invitees": [
+        {
+          "id": "38175e6d-16dd-4db8-91fa-0898a449736d",
+          "name": "Luis",
+          "lastName": "Perey",
+          "email": "luis@admin.com",
+          "password": "12345"
+        },
+        {
+          "id": "74dd55e5-a9b1-41f7-9a6d-0a392a87e7ac",
+          "name": "Claudia",
+          "lastName": "Martinez",
+          "email": "claudia@admin.com",
+          "password": "12345"
+        },
+        {
+          "id": "a0c55095-7ec1-4fdb-8c5b-9455c4397bd0",
+          "name": "Florencia",
+          "lastName": "Perey",
+          "email": "florencia@admin.com",
+          "password": "12345"
+        }
+      ]
+    },
+    {
+      "id": "8480af54-68e5-44a6-9bc2-1d6134be2d4e",
+      "ownerId": {
+        "id": "a0c55095-7ec1-4fdb-8c5b-9455c4397bd0",
+        "name": "Florencia",
+        "lastName": "Perey",
+        "email": "florencia@admin.com",
+        "password": "12345"
+      },
+      "date": "2022-11-12T00:00:00.000Z",
+      "name": "Wedding",
+      "description": "Second Time",
+      "place": "Church",
+      "address": "Lincoln Ave",
+      "duration": 120,
+      "invitees": [
+        {
+          "id": "cf5996ac-c2ab-48bc-b295-2c8eb20a779a",
+          "name": "Ignacio",
+          "lastName": "Perey",
+          "email": "admin@admin.com",
+          "password": "admin"
+        },
+        {
+          "id": "d8f4c572-d356-43ec-afd2-0d63514adc6f",
+          "name": "Alfredo",
+          "lastName": "Perey",
+          "email": "alfredo@admin.com",
+          "password": "12345"
         }
       ]
     }

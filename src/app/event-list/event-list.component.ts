@@ -17,10 +17,14 @@ export class EventListComponent implements OnInit {
   message: string = ''
   currentUser!: IUser | null
   onDestroy = new Subject();
+  extendedList!: boolean
+  isSoloEvent: boolean = false
 
   constructor(private eventService: EventService, private userService : UserService) {
     this.subscriptions.push(this.eventService.$eventList.subscribe(list=>this.eventList = list))
     this.subscriptions.push(this.userService.$userAccount.subscribe(user=>this.currentUser = user))
+    this.subscriptions.push(this.eventService.$typeView.subscribe(view=>this.extendedList = view))
+    this.eventService.$isSoloEvent.subscribe((val)=>{this.isSoloEvent = val})
   }
 
   ngOnInit(): void {

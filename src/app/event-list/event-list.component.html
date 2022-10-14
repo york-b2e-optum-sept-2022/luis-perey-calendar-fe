@@ -1,5 +1,8 @@
-<div>
-  <app-own-event *ngFor="let event of eventList" [event]="event"></app-own-event>
+<div *ngIf="extendedList">
+  <app-extended-list *ngFor="let event of eventList" [event]="event"></app-extended-list>
+</div>
+<div *ngIf="!extendedList">
+  <app-simple-list></app-simple-list>
 </div>
 
 

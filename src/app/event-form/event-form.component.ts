@@ -44,9 +44,7 @@ export class EventFormComponent implements OnInit {
     let eventDate = null
     let eventTime = null
     if (this.event) {
-      console.log(typeof this.event.date, this.event.date)
-      // @ts-ignore
-      let d = new Date(Date.parse(this.event.date))
+      let d = this.event.date
       eventDate = {year: d.getFullYear(), month:d.getMonth()+1,day:d.getDate()}
       eventTime = {hour: d.getHours(), minute:d.getMinutes()}
     }

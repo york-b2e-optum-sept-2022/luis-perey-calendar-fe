@@ -16,13 +16,18 @@ export class NavBarComponent implements OnInit {
   @Input() user = {} as IUser | null
   isCreatingEvent: boolean = false
   isEditingEvent: boolean = false
+  isSoloEvent: boolean = false
   eventsAll: boolean = true
   eventsOwned: boolean = false
   eventsInvited: boolean = false
   search: string = ''
+  extendedList: boolean = true
 
   startDate!: Date | null
   endDate!: Date | null
+
+  private readonly TYPE_VIEW_EXPENDED = "EXTENDED"
+  private readonly TYPE_VIEW_LIMITED = "LIMITED"
 
   constructor(private eventService: EventService,
               private userService: UserService) {
@@ -30,6 +35,7 @@ export class NavBarComponent implements OnInit {
     this.subscriptions.push(this.eventService.$isEditingEvent.subscribe(status=> this.isEditingEvent = status))
     this.subscriptions.push(this.eventService.$startDate.subscribe(date=> this.startDate = date))
     this.subscriptions.push(this.eventService.$endDate.subscribe(date=> this.endDate = date))
+    this.subscriptions.push(this.eventService.$isSoloEvent.subscribe(date=> this.isSoloEvent = date))
   }
 
   ngOnInit(): void {
@@ -40,17 +46,20 @@ export class NavBarComponent implements OnInit {
   }
 
   onClickNew(){
+    this.eventService.$isSoloEvent.next(false)
     this.userService.getInviteesAccounts()
     this.userService.getInvitees()
     this.eventService.onClickNewEvent()
   }
 
   onClickLogout(){
+    this.eventService.$isSoloEvent.next(false)
     this.eventService.onLogout()
     this.userService.logout()
   }
 
   onClickShowEvents(eventType: string) {
+    this.eventService.$isSoloEvent.next(false)
     // @ts-ignore
     this.eventService.getEventList(this.user.id, eventType)
     if (eventType === EVENT_TYPE.ALL) {
@@ -76,4 +85,17 @@ export class NavBarComponent implements OnInit {
   onSearch(){
     this.eventService.onSearchEvents(this.search)
   }
+
+  onClickViewType(type: string) {
+    this.eventService.$isSoloEvent.next(false)
+    if (type === this.TYPE_VIEW_EXPENDED){
+      this.eventService.$typeView.next(true)
+      this.extendedList = true
+    }
+    if (type === this.TYPE_VIEW_LIMITED){
+      this.eventService.$typeView.next(false)
+      this.extendedList = false
+    }
+  }
+
 }

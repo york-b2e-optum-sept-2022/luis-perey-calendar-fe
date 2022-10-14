@@ -7,13 +7,14 @@ import { HttpClientModule } from "@angular/common/http";
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { EventListComponent } from './event-list/event-list.component';
-import { OwnEventComponent } from './own-event/own-event.component';
-import { InviteEventComponent } from './invite-event/invite-event.component';
+import { ExtendedListComponent } from './extended-list/extended-list.component';
+import { SoloEventComponent } from './solo-event/solo-event.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { EventFormComponent } from './event-form/event-form.component';
 import { DatePickerRangeComponent } from './date-picker-range/date-picker-range.component';
 import { DateModalComponent } from './date-modal/date-modal.component';
+import { SimpleListComponent } from './simple-list/simple-list.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +22,13 @@ import { DateModalComponent } from './date-modal/date-modal.component';
     LoginComponent,
     RegisterComponent,
     EventListComponent,
-    OwnEventComponent,
-    InviteEventComponent,
+    ExtendedListComponent,
+    SoloEventComponent,
     NavBarComponent,
     EventFormComponent,
     DatePickerRangeComponent,
-    DateModalComponent
+    DateModalComponent,
+    SimpleListComponent
   ],
   imports: [
     BrowserModule,

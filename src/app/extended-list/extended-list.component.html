@@ -50,6 +50,9 @@
                   <div class="pt-2 flex-grow-1">
                     Invitees :
                   </div>
+                  <div class="p-2 fs-3">
+                    <i (click)="onClickViewEvent(event.id)" class="bi bi-eyeglasses text-success action"  placement="top" ngbTooltip="View Event"></i>
+                  </div>
                   <div class="p-2 fs-4">
                     <i *ngIf="event?.ownerId?.id === user?.id" (click)="onEditClick()" class="bi bi-pencil-square text-success action"  placement="top" ngbTooltip="Edit Event"></i>
                   </div>

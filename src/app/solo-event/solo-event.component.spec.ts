@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InviteEventComponent } from './invite-event.component';
+import { SoloEventComponent } from './solo-event.component';
 
 describe('InviteEventComponent', () => {
-  let component: InviteEventComponent;
-  let fixture: ComponentFixture<InviteEventComponent>;
+  let component: SoloEventComponent;
+  let fixture: ComponentFixture<SoloEventComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InviteEventComponent ]
+      declarations: [ SoloEventComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(InviteEventComponent);
+    fixture = TestBed.createComponent(SoloEventComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

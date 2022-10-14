@@ -43,4 +43,8 @@ export class HttpService {
     return this.httpClient.put('http://localhost:3000/events/'+event.id, event) as Observable<IEvent>;
   }
 
+  getEventById(id: string){
+    return this.httpClient.get('http://localhost:3000/events/'+id) as Observable<IEvent>;
+  }
+
 }

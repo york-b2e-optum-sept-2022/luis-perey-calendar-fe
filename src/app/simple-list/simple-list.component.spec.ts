@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OwnEventComponent } from './own-event.component';
+import { SimpleListComponent } from './simple-list.component';
 
-describe('OwnEventComponent', () => {
-  let component: OwnEventComponent;
-  let fixture: ComponentFixture<OwnEventComponent>;
+describe('SimpleListComponent', () => {
+  let component: SimpleListComponent;
+  let fixture: ComponentFixture<SimpleListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OwnEventComponent ]
+      declarations: [ SimpleListComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(OwnEventComponent);
+    fixture = TestBed.createComponent(SimpleListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
