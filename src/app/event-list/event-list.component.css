@@ -1,0 +1,28 @@
+/*ngb-pagination ::ng-deep ul > li.active > a {*/
+/*  background-color: lightgreen !important;*/
+/*}*/
+
+ngb-pagination ::ng-deep a {
+  color: #ba9643;
+}
+
+/deep/ ngb-pagination .page-item.active .page-link {
+  border-color: #242021;
+  background-color: #242021;
+  color: #ba9643;
+}
+
+/deep/ ngb-pagination .page-item.active .page-link:focus, .page-link:not(:disabled):not(.disabled):active:focus {
+  box-shadow: 0 0 0 0.1rem dimgrey;
+  color: #ba9643;
+}
+
+/deep/ ngb-pagination .page-link:not(:disabled):not(.disabled):active:focus {
+  box-shadow: 0 0 0 0.1rem dimgrey;
+  color: #ba9643;
+}
+
+/deep/ ngb-pagination > ul > .page-item > a:hover {
+  color: #242021;
+  font-weight: bold;
+}

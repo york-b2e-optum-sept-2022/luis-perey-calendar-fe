@@ -3,6 +3,7 @@ import {IEvent} from "../_interfaces/IEvent";
 import {EventService} from "../_services/event.service";
 import {UserService} from "../_services/user.service";
 import {IUser} from "../_interfaces/IUser";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-solo-event',
@@ -11,6 +12,7 @@ import {IUser} from "../_interfaces/IUser";
 })
 export class SoloEventComponent implements OnInit {
 
+  subscriptions: Subscription[] = []
   event!: IEvent | null
   notNullEvent!: IEvent
   user!: IUser | null

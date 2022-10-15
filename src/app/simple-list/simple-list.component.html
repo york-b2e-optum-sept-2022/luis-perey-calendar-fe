@@ -24,8 +24,8 @@
       <td>{{event.ownerId.name}} {{event.ownerId.lastName}}</td>
       <td nowrap>
         <i (click)="onClickViewEvent(event.id)" class="bi bi-eyeglasses text-success action"  placement="top" ngbTooltip="View Event"></i>
-        <i *ngIf="event?.ownerId?.id === user?.id" (click)="onEditClick(event)" class="bi bi-pencil-square text-success action ps-2"  placement="top" ngbTooltip="Edit Event"></i>
-        <i *ngIf="event?.ownerId?.id === user?.id" (click)="onClickDelete(event.id)" class="bi bi-x-circle text-danger action ps-2" placement="top" ngbTooltip="Delete Event"></i>
+        <i *ngIf="event.ownerId?.id === user?.id" (click)="onEditClick(event)" class="bi bi-pencil-square text-success action ps-2"  placement="top" ngbTooltip="Edit Event"></i>
+        <i *ngIf="event.ownerId?.id === user?.id" (click)="onClickDelete(event.id)" class="bi bi-x-circle text-danger action ps-2" placement="top" ngbTooltip="Delete Event"></i>
       </td>
     </tr>
   </tbody>

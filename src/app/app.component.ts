@@ -12,7 +12,7 @@ import {Subscription} from "rxjs";
 export class AppComponent {
 
   @Input() isLogout: boolean = false
-
+  title: string = 'Calendar'
   subscriptions: Subscription[] = []
   register: boolean = false
   user: IUser | null = null;

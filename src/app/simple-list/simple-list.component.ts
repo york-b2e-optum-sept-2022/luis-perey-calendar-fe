@@ -12,23 +12,21 @@ import {Subscription} from "rxjs";
 })
 export class SimpleListComponent implements OnInit {
 
-  subscription: Subscription
-  subscription1: Subscription
+  subscriptions: Subscription[] = []
   eventList!: IEvent[]
   user!: IUser | null
 
   constructor(private eventService: EventService,
               private userService: UserService) {
-    this.subscription = this.eventService.$eventList.subscribe(x=>this.eventList = x)
-    this.subscription1 = this.userService.$userAccount.subscribe(x=>this.user = x)
+    this.subscriptions.push(this.eventService.$eventList.subscribe(x=>this.eventList = x))
+    this.subscriptions.push(this.userService.$userAccount.subscribe(x=>this.user = x))
   }
 
   ngOnInit(): void {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe()
-    this.subscription1.unsubscribe()
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe())
   }
 
   onClickDelete(id: string){
@@ -41,9 +39,7 @@ export class SimpleListComponent implements OnInit {
   }
 
   onClickViewEvent(id: string) {
-    console.log(id)
     this.eventService.getEventById(id)
-    this.eventService.$isSoloEvent.next(true)
   }
 }
 

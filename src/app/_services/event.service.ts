@@ -170,7 +170,7 @@ export class EventService {
             }
           }
           if(key === 'date')
-            field = new Date(field).toString().substring(0,21)
+            field = new Date(field).toLocaleDateString('en-US',{weekday: 'long', month: 'long', day: "2-digit", hour: '2-digit', minute: "2-digit", year: "numeric"})
           if(field) {
             if (field.toString().toLowerCase().includes(search.toLowerCase())) {
               results.push(event)

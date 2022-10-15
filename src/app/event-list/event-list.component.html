@@ -1,5 +1,6 @@
 <div *ngIf="extendedList">
-  <app-extended-list *ngFor="let event of eventList" [event]="event"></app-extended-list>
+  <ngb-pagination #ngbPagination [pageSize]="pageSize" [directionLinks]="false" [collectionSize]="collection" [(page)]="page" aria-label="Default pagination" class="d-flex justify-content-end grid-pagination"></ngb-pagination>
+  <app-extended-list *ngFor="let event of eventList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize"  [event]="event"></app-extended-list>
 </div>
 <div *ngIf="!extendedList">
   <app-simple-list></app-simple-list>
