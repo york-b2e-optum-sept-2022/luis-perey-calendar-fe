@@ -10,29 +10,29 @@
             <div class="row">
               <div class="col-3">
                 <div class="display-6">
-                  <span class="badge">{{ notNullEvent.date | date: 'dd' }}</span>
+                  <span class="badge">{{ event.date | date: 'dd' }}</span>
                 </div>
                 <div class="display-6">
-                  {{ notNullEvent.date | date: 'LLL'}}
+                  {{ event.date | date: 'LLL'}}
                 </div>
                 <div>
-                  {{ notNullEvent.date | date: 'yyyy'}}
+                  {{ event.date | date: 'yyyy'}}
                 </div>
               </div>
               <div class="col-7">
                 <div class="d-flex flex-column">
                   <div>
                     <h3 class="card-title text-uppercase mt-0">
-                      <strong>{{ notNullEvent.name }}</strong>
+                      <strong>{{ event.name }}</strong>
                     </h3>
                   </div>
                   <div class="card-text">
-                    {{ notNullEvent.description }}
+                    {{ event.description }}
                   </div>
                   <div class="align-content-end">
                       <ul class="list-inline mt-auto">
                         <li class="list-inline-item"> <strong>Event Owner :</strong></li>
-                        <li class="list-inline-item"><i class="bi bi-person-fill"></i>{{ notNullEvent.ownerId.name }} {{ notNullEvent.ownerId.lastName }}</li>
+                        <li class="list-inline-item"><i class="bi bi-person-fill"></i>{{ event.ownerId.name }} {{ event.ownerId.lastName }}</li>
                       </ul>
                   </div>
                 </div>
@@ -40,10 +40,16 @@
               <div class="col-2">
                 <div class="d-flex justify-content-end">
                   <div class="p-2 fs-4">
-                    <i *ngIf="event?.ownerId?.id === user?.id" (click)="onEditClick()" class="bi bi-pencil-square text-success action"  placement="top" ngbTooltip="Edit Event"></i>
+                    <i *ngIf="event.ownerId.id === user?.id" (click)="onEditClick()" class="bi bi-pencil-square text-success action"  placement="top" ngbTooltip="Edit Event"></i>
                   </div>
                   <div class="p-2 fs-4">
-                    <i *ngIf="event?.ownerId?.id === user?.id" (click)="onClickDelete()" class="bi bi-x-circle text-danger action" placement="top" ngbTooltip="Delete Event"></i>
+                    <i *ngIf="event.ownerId.id === user?.id" (click)="onClickDelete()" class="bi bi-x-circle text-danger action" placement="top" ngbTooltip="Delete Event"></i>
+                  </div>
+                  <div *ngIf="event.ownerId.id !== user?.id" class="p-2 fs-4">
+                    <i (click)="onClickAcceptInvitation()" class="bi text-success action" [ngClass]="asInvitedStatus === 'ACCEPTED' ? 'bi-bookmark-plus-fill' : 'bi-bookmark-plus'" placement="top" ngbTooltip="Accept Invitation"></i>
+                  </div>
+                  <div *ngIf="event.ownerId.id !== user?.id" class="p-2 fs-4">
+                    <i (click)="onClickRejectInvitation()" class="bi text-danger action" [ngClass]="asInvitedStatus === 'REJECTED' ? 'bi-bookmark-x-fill' : 'bi-bookmark-x'" placement="top" ngbTooltip="Reject Invitation"></i>
                   </div>
                 </div>
               </div>
@@ -68,11 +74,11 @@
               </div>
               <div class="col-9">
                 <ul class="list-group my-0 pl-1">
-                  <li class="list-inline-item fs-6"><i class="bi bi-clock"></i> {{ notNullEvent.date | date: 'shortTime'}}</li>
-                  <li class="list-inline-item fs-6"><i class="bi bi-calendar-check"></i> {{ notNullEvent.date | date:'EEEE'}}</li>
-                  <li class="list-inline-item fs-6"><i class="bi bi-geo-alt"></i> {{ notNullEvent.place }}</li>
-                  <li class="list-inline-item fs-6"><i class="bi bi-geo-fill"></i> {{ notNullEvent.address }}</li>
-                  <li class="list-inline-item fs-6"><i class="bi bi-stopwatch-fill"></i> {{ notNullEvent.duration }}</li>
+                  <li class="list-inline-item fs-6"><i class="bi bi-clock"></i> {{ event.date | date: 'shortTime'}}</li>
+                  <li class="list-inline-item fs-6"><i class="bi bi-calendar-check"></i> {{ event.date | date:'EEEE'}}</li>
+                  <li class="list-inline-item fs-6"><i class="bi bi-geo-alt"></i> {{ event.place }}</li>
+                  <li class="list-inline-item fs-6"><i class="bi bi-geo-fill"></i> {{ event.address }}</li>
+                  <li class="list-inline-item fs-6"><i class="bi bi-stopwatch-fill"></i> {{ event.duration }}</li>
                 </ul>
               </div>
             </div>
@@ -89,11 +95,13 @@
             <div class="col-12 col-sm-12 bg-white text-dark">
               <div class="d-flex">
                 <div class="pt-2 flex-grow-1">
-                  Invitees :
+                  Guests :
                 </div>
               </div>
               <ul>
-                <li *ngFor="let inv of notNullEvent.invitees">{{ inv.name }} {{ inv.lastName}}</li>
+                <li *ngFor="let inv of event.invitees"
+                    [ngClass]="inv.status === 'ACCEPTED' ? 'text-success' : inv.status === 'REJECTED' ? 'text-danger' : ''">{{ inv.name }} {{ inv.lastName}}
+                  <i [ngClass]="inv.status === 'ACCEPTED' ? 'bi bi-check2-all' : inv.status === 'REJECTED' ? 'bi bi-x' : 'bi bi-question'"></i></li>
               </ul>
             </div>
           </div>

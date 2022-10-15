@@ -1,4 +1,5 @@
 import {IUser} from "./IUser";
+import {STATUS} from "../_enums/STATUS";
 
 export interface IEvent {
   id: string
@@ -11,5 +12,6 @@ export interface IEvent {
   duration: number
   invitees : [
     invite: IUser
-  ]
+  ],
+  status: STATUS
 }

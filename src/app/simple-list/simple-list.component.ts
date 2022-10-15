@@ -4,6 +4,7 @@ import {EventService} from "../_services/event.service";
 import {UserService} from "../_services/user.service";
 import {IUser} from "../_interfaces/IUser";
 import {Subscription} from "rxjs";
+import {STATUS} from "../_enums/STATUS";
 
 @Component({
   selector: 'app-simple-list',
@@ -14,12 +15,12 @@ export class SimpleListComponent implements OnInit {
 
   subscriptions: Subscription[] = []
   eventList!: IEvent[]
-  user!: IUser | null
+  user!: IUser
 
   constructor(private eventService: EventService,
               private userService: UserService) {
     this.subscriptions.push(this.eventService.$eventList.subscribe(x=>this.eventList = x))
-    this.subscriptions.push(this.userService.$userAccount.subscribe(x=>this.user = x))
+    this.subscriptions.push(this.userService.$userAccount.subscribe(x=> {if(x !== null) this.user = x}))
   }
 
   ngOnInit(): void {
@@ -40,6 +41,14 @@ export class SimpleListComponent implements OnInit {
 
   onClickViewEvent(id: string) {
     this.eventService.getEventById(id)
+  }
+
+  onClickAcceptInvitation(event: IEvent) {
+    this.eventService.updateInvitation(event, STATUS.ACCEPTED)
+  }
+
+  onClickRejectInvitation(event: IEvent){
+    this.eventService.updateInvitation(event, STATUS.REJECTED)
   }
 }
 

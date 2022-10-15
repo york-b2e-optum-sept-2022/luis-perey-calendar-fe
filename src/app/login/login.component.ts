@@ -33,6 +33,5 @@ export class LoginComponent implements OnInit {
 
   onClickLogin(form: NgForm){
     this.userService.onLogin(form.value as ILoginForm)
-    // this.userService.getInviteesAccounts()
   }
 }

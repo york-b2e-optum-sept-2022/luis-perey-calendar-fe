@@ -4,6 +4,7 @@ import {IUser} from "../_interfaces/IUser";
 import {EventService} from "../_services/event.service";
 import {UserService} from "../_services/user.service";
 import {Subscription} from "rxjs";
+import {STATUS} from "../_enums/STATUS";
 
 @Component({
   selector: 'app-extended-list',
@@ -14,13 +15,17 @@ export class ExtendedListComponent implements OnInit {
 
   subscription: Subscription
   @Input() event! : IEvent
-  user! : IUser | null
+  user! : IUser
+  asInvitedStatus: STATUS = STATUS.PENDING
 
   constructor(private eventService: EventService, private userService: UserService) {
-    this.subscription = this.userService.$userAccount.subscribe(user=> this.user = user)
+    this.subscription = this.userService.$userAccount.subscribe(user=> {if (user !== null) this.user = user})
   }
 
   ngOnInit(): void {
+    if (this.event.invitees.find(x => x.id === this.user.id))
+      // @ts-ignore
+      this.asInvitedStatus = this.event.invitees.find(x => x.id === this.user.id).status
   }
 
   ngOnDestroy(): void {
@@ -38,5 +43,13 @@ export class ExtendedListComponent implements OnInit {
 
   onClickViewEvent(id: string){
     this.eventService.getEventById(id)
+  }
+
+  onClickAcceptInvitation() {
+    this.eventService.updateInvitation(this.event, STATUS.ACCEPTED)
+  }
+
+  onClickRejectInvitation() {
+    this.eventService.updateInvitation(this.event, STATUS.REJECTED)
   }
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IUser} from "../_interfaces/IUser";
 import {UserService} from "../_services/user.service";
 import {Subscription} from "rxjs";
+import {STATUS} from "../_enums/STATUS";
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,8 @@ export class RegisterComponent implements OnInit {
     name: '',
     lastName: '',
     email: '',
-    password: ''
+    password: '',
+    status: STATUS.PENDING
   }
   repeatPassword: string = ''
   message: string = ''

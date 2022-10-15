@@ -124,9 +124,8 @@ export class UserService {
           next: (user) => {
             this.$userAccount.next(user)
           },
-          error: (err) => {
+          error: () => {
             this.$message.next(ERROR.REGISTER_HTTP_ERROR)
-            console.error(err)
           }
         })
         this.eventService.getEventList(user.id, EVENT_TYPE.ALL)

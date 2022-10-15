@@ -5,6 +5,7 @@ import {IEvent} from "../_interfaces/IEvent";
 import {EVENT_TYPE} from "../_enums/EVENT_TYPE";
 import {NgbDate} from "@ng-bootstrap/ng-bootstrap";
 import {ERROR} from "../_enums/ERROR";
+import {STATUS} from "../_enums/STATUS";
 
 @Injectable({
   providedIn: 'root'
@@ -33,13 +34,13 @@ export class EventService {
 
   constructor(private httpService: HttpService) { }
 
-  getEventList(id: string, type: EVENT_TYPE) {
-    this.userId = id
+  getEventList(userId: string, type: EVENT_TYPE) {
+    this.userId = userId
     this.eventType = type
     this.httpService.getEvents().pipe(first()).subscribe({
       next: (list) => {
         list.map(x=>x.date = new Date(x.date))
-        this.eventList = list.filter(x=>x.ownerId.id === id || x.invitees.map(v=>v.id).includes(id)).sort((a,b) =>{
+        this.eventList = list.filter(x=>x.ownerId.id === userId || x.invitees.map(v=>v.id).includes(userId)).sort((a,b) =>{
           if (a.date > b.date) {
             return 1
           }
@@ -48,11 +49,17 @@ export class EventService {
           }
           return 0
         })
+        // Getting the status as invitee for the current user
+        for(let event of list){
+          if (event.invitees.find(x=>x.id === userId))
+          // @ts-ignore
+            event.status = event.invitees.find(x=>x.id === userId).status
+        }
         if (type === EVENT_TYPE.INVITED) {
-          this.eventList = this.eventList.filter(x=>x.ownerId.id !== id)
+          this.eventList = this.eventList.filter(x=>x.ownerId.id !== userId)
         }
         if (type === EVENT_TYPE.OWNED) {
-          this.eventList = this.eventList.filter(x=>x.ownerId.id === id)
+          this.eventList = this.eventList.filter(x=>x.ownerId.id === userId)
         }
         if (this.startDate !== this.endDate) {
           this.eventList = this.eventList.filter(event => (event.date >= this.startDate) && (event.date.getTime() <= this.endDate.getTime() + 86400000))
@@ -113,10 +120,10 @@ export class EventService {
   }
 
   updateEvent(event: IEvent){
-    console.log(event)
     this.httpService.updateEvent(event).pipe(first()).subscribe({
       next:(data)=>{
-        this.getEventList(data.ownerId.id, this.eventType)
+        this.$currentEvent.next(data)
+        this.getEventList(this.userId, this.eventType)
         this.$isEditingEvent.next(false)
       },
       error:()=>{
@@ -187,5 +194,10 @@ export class EventService {
     this.$isEditingEvent.next(false)
     this.$isCreatingEvent.next(false)
     this.cleanDates()
+  }
+
+  updateInvitation(event: IEvent, status: STATUS){
+    event.invitees.map(x=>x.id === this.userId ? x.status = status : 1)
+    this.updateEvent(event)
   }
 }

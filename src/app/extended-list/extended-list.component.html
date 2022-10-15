@@ -53,15 +53,23 @@
                   <div class="p-2 fs-3">
                     <i (click)="onClickViewEvent(event.id)" class="bi bi-eyeglasses text-success action"  placement="top" ngbTooltip="View Event"></i>
                   </div>
-                  <div class="p-2 fs-4">
-                    <i *ngIf="event?.ownerId?.id === user?.id" (click)="onEditClick()" class="bi bi-pencil-square text-success action"  placement="top" ngbTooltip="Edit Event"></i>
+                  <div *ngIf="event?.ownerId?.id === user?.id" class="p-2 fs-4">
+                    <i (click)="onEditClick()" class="bi bi-pencil-square text-success action"  placement="top" ngbTooltip="Edit Event"></i>
                   </div>
-                  <div class="p-2 fs-4">
-                    <i *ngIf="event?.ownerId?.id === user?.id" (click)="onClickDelete()" class="bi bi-x-circle text-danger action" placement="top" ngbTooltip="Delete Event"></i>
+                  <div *ngIf="event?.ownerId?.id === user?.id" class="p-2 fs-4">
+                    <i (click)="onClickDelete()" class="bi bi-x-circle text-danger action" placement="top" ngbTooltip="Delete Event"></i>
+                  </div>
+                  <div *ngIf="event.ownerId?.id !== user?.id" class="p-2 fs-4">
+                    <i (click)="onClickAcceptInvitation()" class="bi text-success action" [ngClass]="asInvitedStatus === 'ACCEPTED' ? 'bi-bookmark-plus-fill' : 'bi-bookmark-plus'" placement="top" ngbTooltip="Accept Invitation"></i>
+                  </div>
+                  <div *ngIf="event.ownerId?.id !== user?.id" class="p-2 fs-4">
+                    <i (click)="onClickRejectInvitation()" class="bi text-danger action" [ngClass]="asInvitedStatus === 'REJECTED' ? 'bi-bookmark-x-fill' : 'bi-bookmark-x'" placement="top" ngbTooltip="Reject Invitation"></i>
                   </div>
                 </div>
                 <ul>
-                  <li *ngFor="let inv of event.invitees">{{ inv.name }} {{ inv.lastName}}</li>
+                  <li *ngFor="let inv of event.invitees"
+                      [ngClass]="inv.status === 'ACCEPTED' ? 'text-success' : inv.status === 'REJECTED' ? 'text-danger' : ''">{{ inv.name }} {{ inv.lastName}}
+                  <i [ngClass]="inv.status === 'ACCEPTED' ? 'bi bi-check2-all' : inv.status === 'REJECTED' ? 'bi bi-x' : 'bi bi-question'"></i></li>
                 </ul>
               </div>
             </div>
