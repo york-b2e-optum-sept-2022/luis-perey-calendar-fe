@@ -122,7 +122,7 @@
           "lastName": "Perey",
           "email": "alfredo@admin.com",
           "password": "12345",
-          "status": "ACCEPTED"
+          "status": ""
         },
         {
           "id": "3b9cadeb-a43d-4bb9-a9bf-ba3eb0ed7894",
@@ -147,7 +147,7 @@
           "lastName": "Chaparro",
           "email": "kualias@hotmail.com",
           "password": "12345",
-          "status": "REJECTED"
+          "status": ""
         },
         {
           "id": "5a05ab2a-76ee-454d-ab89-e583211b1752",
@@ -157,8 +157,7 @@
           "password": "12345",
           "status": ""
         }
-      ],
-      "status": ""
+      ]
     },
     {
       "id": "97ca2509-7a00-4714-88dc-92883fbb2d81",
@@ -215,10 +214,10 @@
         "status": ""
       },
       "date": "2022-10-29T18:30:00.000Z",
-      "name": "qweqwe",
-      "description": "qweqwe",
-      "place": "qwe",
-      "address": "qwe",
+      "name": "App Review",
+      "description": "Office meeting",
+      "place": "Office",
+      "address": "1 NW",
       "duration": 30,
       "invitees": [
         {
@@ -227,7 +226,7 @@
           "lastName": "Perey",
           "email": "luis@admin.com",
           "password": "12345",
-          "status": ""
+          "status": "ACCEPTED"
         },
         {
           "id": "d8f4c572-d356-43ec-afd2-0d63514adc6f",
@@ -236,8 +235,26 @@
           "email": "alfredo@admin.com",
           "password": "12345",
           "status": ""
+        },
+        {
+          "id": "9fe13484-cb9b-4cb6-90ef-565124211860",
+          "email": "claudio@admin.com",
+          "name": "Claudio",
+          "firstName": "Claudio",
+          "lastName": "Perey",
+          "password": "12345",
+          "status": ""
+        },
+        {
+          "id": "5a05ab2a-76ee-454d-ab89-e583211b1752",
+          "name": "John",
+          "lastName": "Smith",
+          "email": "smith@admin.com",
+          "password": "12345",
+          "status": ""
         }
-      ]
+      ],
+      "status": ""
     },
     {
       "id": "9e250c98-8973-4fdf-843a-ae52a6dcb165",
@@ -360,7 +377,7 @@
           "lastName": "Perey",
           "email": "admin@admin.com",
           "password": "admin",
-          "status": ""
+          "status": "ACCEPTED"
         },
         {
           "id": "3b9cadeb-a43d-4bb9-a9bf-ba3eb0ed7894",
@@ -376,6 +393,69 @@
           "name": "Claudio",
           "firstName": "Claudio",
           "lastName": "Perey",
+          "password": "12345",
+          "status": ""
+        }
+      ],
+      "status": ""
+    },
+    {
+      "id": "cf87c991-4d5b-46e2-84ef-de242cacdb55",
+      "ownerId": {
+        "id": "cf5996ac-c2ab-48bc-b295-2c8eb20a779a",
+        "name": "Ignacio",
+        "lastName": "Perey",
+        "email": "admin@admin.com",
+        "password": "admin",
+        "status": ""
+      },
+      "date": "2022-10-14T05:30:00.000Z",
+      "name": "TV Show",
+      "description": "Show",
+      "place": "TV",
+      "address": "Palmetto",
+      "duration": 60,
+      "invitees": []
+    },
+    {
+      "id": "cfc4a468-475e-47c7-9bfb-f8cd6144e0cd",
+      "ownerId": {
+        "id": "a0c55095-7ec1-4fdb-8c5b-9455c4397bd0",
+        "name": "Florencia",
+        "lastName": "Perey",
+        "email": "florencia@admin.com",
+        "password": "12345",
+        "status": ""
+      },
+      "date": "2022-11-15T20:30:00.000Z",
+      "name": "Exam",
+      "description": "Math exam",
+      "place": "College",
+      "address": "College",
+      "duration": 60,
+      "invitees": [
+        {
+          "id": "9fe13484-cb9b-4cb6-90ef-565124211860",
+          "email": "claudio@admin.com",
+          "name": "Claudio",
+          "firstName": "Claudio",
+          "lastName": "Perey",
+          "password": "12345",
+          "status": ""
+        },
+        {
+          "id": "ffb64f99-e666-4a2d-9654-47cced135737",
+          "name": "Camila",
+          "lastName": "Chaparro",
+          "email": "kualias@hotmail.com",
+          "password": "12345",
+          "status": ""
+        },
+        {
+          "id": "5a05ab2a-76ee-454d-ab89-e583211b1752",
+          "name": "John",
+          "lastName": "Smith",
+          "email": "smith@admin.com",
           "password": "12345",
           "status": ""
         }

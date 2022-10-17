@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject, Subscription} from "rxjs";
 import {IEvent} from "../_interfaces/IEvent";
 import {EventService} from "../_services/event.service";
@@ -10,14 +10,14 @@ import {IUser} from "../_interfaces/IUser";
   templateUrl: './event-list.component.html',
   styleUrls: ['./event-list.component.css']
 })
-export class EventListComponent implements OnInit {
+export class EventListComponent implements OnInit, OnDestroy {
 
   collection!: number
   pageSize: number = 4
   page: number = 1
   subscriptions: Subscription[] = []
   eventList! : IEvent[]
-  message: string = ''
+  message: string | null = ''
   currentUser!: IUser | null
   onDestroy = new Subject();
   extendedList!: boolean
@@ -30,7 +30,8 @@ export class EventListComponent implements OnInit {
     }))
     this.subscriptions.push(this.userService.$userAccount.subscribe(user=>this.currentUser = user))
     this.subscriptions.push(this.eventService.$typeView.subscribe(view=>this.extendedList = view))
-    this.eventService.$isSoloEvent.subscribe((val)=>{this.isSoloEvent = val})
+    this.subscriptions.push(this.eventService.$isSoloEvent.subscribe((val)=>{this.isSoloEvent = val}))
+    this.subscriptions.push(this.eventService.$eventError.subscribe(message => this.message = message))
   }
 
   ngOnInit(): void {

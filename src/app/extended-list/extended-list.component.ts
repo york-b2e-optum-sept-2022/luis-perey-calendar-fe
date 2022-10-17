@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {IEvent} from "../_interfaces/IEvent";
 import {IUser} from "../_interfaces/IUser";
 import {EventService} from "../_services/event.service";
@@ -11,7 +11,7 @@ import {STATUS} from "../_enums/STATUS";
   templateUrl: './extended-list.component.html',
   styleUrls: ['./extended-list.component.css']
 })
-export class ExtendedListComponent implements OnInit {
+export class ExtendedListComponent implements OnInit, OnDestroy {
 
   subscription: Subscription
   @Input() event! : IEvent

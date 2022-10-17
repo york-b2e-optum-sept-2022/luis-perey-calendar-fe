@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
 import { IUser } from '../_interfaces/IUser';
 import {UserService} from "../_services/user.service";
@@ -14,13 +14,14 @@ import {Subscription} from "rxjs";
   templateUrl: './event-form.component.html',
   styleUrls: ['./event-form.component.css']
 })
-export class EventFormComponent implements OnInit {
+export class EventFormComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = []
   eventForm!: FormGroup;
   invitees! : IUser[]
   userAccount! : IUser | null
   event!: IEvent | null
+  message: string | null = null
 
   error : IEventError = {
     name: null,
@@ -38,6 +39,7 @@ export class EventFormComponent implements OnInit {
     this.subscriptions.push(this.userService.$inviteesAccounts.subscribe(val=> this.invitees = val))
     this.subscriptions.push(this.userService.$userAccount.subscribe(val=>this.userAccount = val))
     this.subscriptions.push(this.eventService.$currentEvent.subscribe(val=>this.event = val))
+    this.subscriptions.push(this.eventService.$eventError.subscribe(mess=> this.message = mess))
   }
 
   ngOnInit(): void {
@@ -126,7 +128,6 @@ export class EventFormComponent implements OnInit {
     let date = this.eventForm.value.date
     let time = this.eventForm.value.time
     const newEvent = !this.event?.id
-    console.log(new Date(date.year, date.month-1, date.day,time.hour, time.minute, time.second))
     let event: IEvent = {
       id: !this.event?.id ? uuid() : this.event.id,
       // @ts-ignore

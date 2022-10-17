@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {IEvent} from "../_interfaces/IEvent";
 import {EventService} from "../_services/event.service";
 import {UserService} from "../_services/user.service";
@@ -11,7 +11,7 @@ import {STATUS} from "../_enums/STATUS";
   templateUrl: './simple-list.component.html',
   styleUrls: ['./simple-list.component.css']
 })
-export class SimpleListComponent implements OnInit {
+export class SimpleListComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = []
   eventList!: IEvent[]

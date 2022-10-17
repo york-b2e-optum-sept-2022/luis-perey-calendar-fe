@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {IEvent} from "../_interfaces/IEvent";
 import {EventService} from "../_services/event.service";
 import {UserService} from "../_services/user.service";
@@ -11,23 +11,29 @@ import {STATUS} from "../_enums/STATUS";
   templateUrl: './solo-event.component.html',
   styleUrls: ['./solo-event.component.css']
 })
-export class SoloEventComponent implements OnInit {
+export class SoloEventComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = []
   event!: IEvent
   user!: IUser
   asInvitedStatus: STATUS = STATUS.PENDING
+  message: string | null = null
 
   constructor(private eventService: EventService,
               private userService: UserService) {
-    this.eventService.$currentEvent.subscribe(event=> {if (event !== null) this.event = event})
-    this.userService.$userAccount.subscribe(user=> {if (user !== null) this.user = user})
+    this.subscriptions.push(this.eventService.$currentEvent.subscribe(event=> {if (event !== null) this.event = event}))
+    this.subscriptions.push(this.userService.$userAccount.subscribe(user=> {if (user !== null) this.user = user}))
+    this.subscriptions.push(this.eventService.$eventError.subscribe(mess=> this.message = mess))
   }
 
   ngOnInit(): void {
     if (this.event.invitees.find(x => x.id === this.user.id))
       // @ts-ignore
       this.asInvitedStatus = this.event.invitees.find(x => x.id === this.user.id).status
+  }
+
+  ngOnDestroy(){
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe())
   }
 
   onClickBack(){
@@ -46,11 +52,15 @@ export class SoloEventComponent implements OnInit {
 
   onClickAcceptInvitation() {
     this.eventService.updateInvitation(this.event, STATUS.ACCEPTED)
-    this.asInvitedStatus = STATUS.ACCEPTED
+    if (!this.message) {
+      this.asInvitedStatus = STATUS.ACCEPTED
+    }
   }
 
   onClickRejectInvitation() {
     this.eventService.updateInvitation(this.event, STATUS.REJECTED)
-    this.asInvitedStatus = STATUS.REJECTED
+    if (!this.message) {
+      this.asInvitedStatus = STATUS.REJECTED
+    }
   }
 }

@@ -3,7 +3,7 @@ export enum ERROR {
   //ON LOGIN
   LOGIN_NOT_EXIST_EMAIL = 'No User with that email',
   LOGIN_WRONG_PASSWORD = 'Wrong password!',
-  LOGIN_HTTP_ERROR = 'Error during the login process, please try again',
+  LOGIN_HTTP_ERROR = 'Error connecting with the server, please try again',
   //ON REGISTER
   REGISTER_INVALID_NAME = 'Must enter valid Name',
   REGISTER_INVALID_LAST_NAME = 'Must enter valid Last Name',
@@ -13,6 +13,9 @@ export enum ERROR {
   REGISTER_NO_MATCH_PASSWORD = 'Passwords do not match',
   //ON EVENT SERVICE
   EVENT_SERVICE_HTTP_ERROR = 'Problems getting the Event List',
+  EVENT_SERVICE_HTTP_UPDATE = 'Problems updating the Event, please try again later',
+  EVENT_SERVICE_HTTP_CREATE = 'Problems creating the Event, please try again later',
+  EVENT_SERVICE_HTTP_DELETE = 'Problems deleting the Event, please try again later',
   EVENT_INVALID_NAME = 'Name must have a name',
   EVENT_INVALID_DESCRIPTION = 'Event must have a description',
   EVENT_INVALID_PLACE = 'Event must have a place',

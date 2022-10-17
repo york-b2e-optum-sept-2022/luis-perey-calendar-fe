@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from "../_services/user.service";
 import {ILoginForm} from "../_interfaces/ILoginForm";
 import {IUser} from "../_interfaces/IUser";
@@ -10,7 +10,7 @@ import {Subscription} from "rxjs";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   subscription: Subscription
   user! : IUser

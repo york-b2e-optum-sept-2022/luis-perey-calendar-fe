@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {IUser} from "../_interfaces/IUser";
 import {EventService} from "../_services/event.service";
 import { UserService } from '../_services/user.service';
@@ -10,7 +10,7 @@ import {Subscription} from "rxjs";
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = []
   @Input() user = {} as IUser | null

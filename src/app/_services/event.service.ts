@@ -12,7 +12,7 @@ import {STATUS} from "../_enums/STATUS";
 })
 export class EventService {
 
-  $eventError = new Subject<string>();
+  $eventError = new BehaviorSubject<string | null>(null);
   $eventList = new BehaviorSubject<IEvent[]>([])
   $isCreatingEvent = new Subject<boolean>()
   $isEditingEvent = new Subject<boolean>()
@@ -35,6 +35,7 @@ export class EventService {
   constructor(private httpService: HttpService) { }
 
   getEventList(userId: string, type: EVENT_TYPE) {
+    this.$eventError.next(null)
     this.userId = userId
     this.eventType = type
     this.httpService.getEvents().pipe(first()).subscribe({
@@ -68,11 +69,13 @@ export class EventService {
       },
       error: () => {
         this.$eventError.next(ERROR.EVENT_SERVICE_HTTP_ERROR)
+        this.$eventList.next([])
       }
     })
   }
 
   getEventById(id: string) {
+    this.$eventError.next(null)
     this.httpService.getEventById(id).pipe(first()).subscribe({
       next:(data)=>{
         data.date = new Date(data.date)
@@ -82,6 +85,7 @@ export class EventService {
       },
       error:()=>{
         this.$eventError.next(ERROR.EVENT_SERVICE_HTTP_ERROR)
+        this.$eventList.next([])
       }
     })
   }
@@ -97,29 +101,34 @@ export class EventService {
   }
 
   createNewEvent(newEvent: IEvent){
+    this.$eventError.next(null)
     this.httpService.createEvent(newEvent).pipe(first()).subscribe({
       next:(data)=>{
         this.$isCreatingEvent.next(false)
         this.getEventList(data.ownerId.id, EVENT_TYPE.ALL)
       },
       error:()=>{
-        this.$eventError.next(ERROR.EVENT_SERVICE_HTTP_ERROR)
+        this.$eventError.next(ERROR.EVENT_SERVICE_HTTP_CREATE)
+        this.$eventList.next([])
       }
     })
   }
 
   deleteEvent(eventId: string, userId: string) {
+    this.$eventError.next(null)
     this.httpService.deleteEvent(eventId).pipe(first()).subscribe({
       next:()=>{
         this.getEventList(userId, this.eventType)
       },
       error:()=>{
-        this.$eventError.next(ERROR.EVENT_SERVICE_HTTP_ERROR)
+        this.$eventError.next(ERROR.EVENT_SERVICE_HTTP_DELETE)
+        this.$eventList.next([])
       }
     })
   }
 
   updateEvent(event: IEvent){
+    this.$eventError.next(null)
     this.httpService.updateEvent(event).pipe(first()).subscribe({
       next:(data)=>{
         this.$currentEvent.next(data)
@@ -127,7 +136,8 @@ export class EventService {
         this.$isEditingEvent.next(false)
       },
       error:()=>{
-        this.$eventError.next(ERROR.EVENT_SERVICE_HTTP_ERROR)
+        this.$eventError.next(ERROR.EVENT_SERVICE_HTTP_UPDATE)
+        this.$eventList.next([])
       }
     })
   }

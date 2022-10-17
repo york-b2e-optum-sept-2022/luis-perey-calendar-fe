@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NgbModal, NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import {EventService} from "../_services/event.service";
 import {Subscription} from "rxjs";
@@ -8,7 +8,7 @@ import {Subscription} from "rxjs";
   templateUrl: './date-modal.component.html',
   styleUrls: ['./date-modal.component.css']
 })
-export class DateModalComponent implements OnInit {
+export class DateModalComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = []
   closeResult = '';

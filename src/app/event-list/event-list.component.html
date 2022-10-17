@@ -1,3 +1,6 @@
+<div *ngIf="message" class="text-center alert alert-danger">
+  {{ message }}
+</div>
 <div *ngIf="extendedList">
   <ngb-pagination #ngbPagination [pageSize]="pageSize" [directionLinks]="false" [collectionSize]="collection" [(page)]="page" aria-label="Default pagination" class="d-flex justify-content-end grid-pagination"></ngb-pagination>
   <app-extended-list *ngFor="let event of eventList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize"  [event]="event"></app-extended-list>
